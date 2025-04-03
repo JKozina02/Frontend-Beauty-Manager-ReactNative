@@ -1,0 +1,31 @@
+{
+  "name": "real-time-chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "eslint . --fix",
+    "test": "jest --watchAll --coverage"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.6",
+    "expo": "~52.0.42",
+    "expo-status-bar": "~2.0.1",
+    "prettier": "^3.5.3",
+    "react": "18.3.1",
+    "react-native": "0.76.8",
+    "eslint-config-expo": "~8.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "eslint": "^8.57.0",
+    "eslint-config-expo": "~8.0.1",
+    "jest-expo": "~52.0.6",
+    "jest": "~29.7.0"
+  },
+  "private": true
+}
