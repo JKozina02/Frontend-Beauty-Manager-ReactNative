@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+echo "🚀 Running Git hooks..."
+
+npm run lint || {
+  echo "❌ ESLint found errors! Fix them and try again."
+  exit 1
+}
+
+npm run format:check || {
+  echo "❌ Prettier issues! Run 'npm run format' and retry."
+  exit 1
+}
+
+
+echo "✅ All checks passed!"
