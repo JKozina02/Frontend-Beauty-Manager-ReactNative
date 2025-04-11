@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@expo-google-fonts/koh-santepheap": "^0.3.0",
     "@expo/metro-runtime": "~4.0.1",
     "@react-navigation/native": "^7.1.6",
     "@react-navigation/native-stack": "^7.3.10",
@@ -21,6 +22,8 @@
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
     "expo": "~52.0.42",
+    "expo-asset": "~11.0.5",
+    "expo-font": "~13.0.4",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",

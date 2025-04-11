@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import CircleComponent from "../components/ui/CircleComponent";
 import LogoComponent from "../components/ui/LogoComponent";
+import { HeadingComponent } from "../components/heading/HeadingComponent";
 
 export const HomeScreen = () => {
   return (
@@ -9,6 +10,9 @@ export const HomeScreen = () => {
         <CircleComponent width="200" height="200" />
       </View>
       <LogoComponent />
+      <View>
+        <HeadingComponent children={"Welcome"} />
+      </View>
     </View>
   );
 };
