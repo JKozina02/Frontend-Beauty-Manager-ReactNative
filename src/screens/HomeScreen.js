@@ -14,14 +14,18 @@ export const HomeScreen = () => {
       <View style={{ position: "absolute", right: "-80", top: "-65" }}>
         <CircleComponent width="200" height="200" />
       </View>
-      <LogoComponent />
+      <View style={styles.containerLogo}>
+        <LogoComponent />
+      </View>
       <View style={styles.containerWelcomeCard}>
-        <HeadingComponent children={"Welcome"} />
-        <CustomTextComponent
-          children={
-            "Welcome to the beautiful manager, here you can choose your favorite service and sign up for it with our beautiful app."
-          }
-        />
+        <View style={styles.wrapperTitle}>
+          <HeadingComponent children={"Welcome"} />
+          <CustomTextComponent
+            children={
+              "Welcome to the beautiful manager, here you can choose your favorite service and sign up for it with our beautiful app."
+            }
+          />
+        </View>
         <View style={styles.wrapperButtons}>
           <CustomButton
             onPress={() => navigation.navigate("SignIn")}
@@ -42,6 +46,9 @@ export const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  wrapperTitle: {
+    gap: 25,
+  },
   wrapperButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -53,13 +60,20 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 80,
+    paddingBottom: 70,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
   },
+  containerLogo: {
+    position: "absolute",
+    top: "25%",
+    left: 0,
+    right: 0,
+    alignItems: "center",
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
