@@ -1,5 +1,10 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
+import { InputComponent } from "../components/form/InputComponent";
 
 export const SignInScreen = () => {
-  return <Text>Sign in Screen</Text>;
+  return (
+    <View>
+      <InputComponent placeholder={"Your email"} type={"default"} value={""} onChange={""} />
+    </View>
+  );
 };
