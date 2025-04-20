@@ -1,19 +1,20 @@
+import { View } from "react-native";
+import { Text } from "react-native";
 import { StyleSheet, TextInput } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-export const InputComponent = ({ placeholder, type, value, onChange }) => {
+export const InputComponent = ({ placeholder, type, value, onChangeText, error }) => {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChange}
-          value={value}
-          placeholder={placeholder}
-          keyboardType={type}
-        />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <View style={styles.container}>
+      <TextInput
+        style={[styles.input, error && styles.inputError]}
+        onChangeText={onChangeText}
+        value={value}
+        placeholder={placeholder}
+        keyboardType={type}
+      />
+      {error && <Text style={styles.errorText}>{error}</Text>}
+    </View>
   );
 };
 
@@ -27,5 +28,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#F5F5F5",
     borderRadius: 15,
+  },
+  inputError: {
+    borderColor: "red",
   },
 });
