@@ -1,9 +1,5 @@
-import { View, Text } from "react-native";
+import { TopMenuComponent } from "../components/menu/TopMenuComponent";
 
 export const MainScreen = () => {
-  return (
-    <View>
-      <Text> MainPlaceHolder</Text>
-    </View>
-  );
+  return <TopMenuComponent category="Kunegunda" />;
 };
