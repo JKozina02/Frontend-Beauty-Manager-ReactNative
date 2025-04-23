@@ -1,22 +1,23 @@
 import { Text, View, StyleSheet} from "react-native";
 import SearchBarComponent from "../components/searchBar/searchBarComponent";
-import { useSelector } from "react-redux";
-
+import FiltersButtonComponent from "../components/filters/filtersButtonComponent";
+import FiltersComponent from "../components/filters/filtersComponent";
 export const SignInScreen = () => {
-  const input = useSelector((state) => state.search.query);
   return(
     <View style={styles.container}>
         <SearchBarComponent/>
-        <Text>Current Search: {input}</Text>
+        <FiltersButtonComponent/>
+        <FiltersComponent/>
     </View>
   )
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ustawia kontener na pełną wysokość i szerokość ekranu
-    justifyContent: "center", // Wyśrodkowanie w pionie
-    alignItems: "center", // Wyśrodkowanie w poziomie
-    backgroundColor: "#f5f5f5", // Opcjonalne tło dla lepszej widoczności
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center", 
+    backgroundColor: "#f5f5f5", 
+    flexDirection: "row"
   },
 })

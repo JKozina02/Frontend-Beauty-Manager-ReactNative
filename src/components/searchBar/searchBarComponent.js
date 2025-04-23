@@ -28,13 +28,14 @@ export default function SearchBarComponent(){
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         flexDirection: "row",
         alignItems: "center", 
-        width: width * 0.7, 
         height: 50,
         backgroundColor: "#ffffff",
         paddingHorizontal: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 5
     },
     icon: {
         width: 20,
