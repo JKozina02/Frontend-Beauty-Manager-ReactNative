@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     fontFamily: "KohSantepheap-Regular",
     color: "#7B7B7B",
     fontSize: 20,
-    height: "100%",
     width: "100%",
     paddingHorizontal: 15,
     backgroundColor: "#F5F5F5",

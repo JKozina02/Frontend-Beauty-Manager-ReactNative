@@ -6,10 +6,13 @@ import { schema } from "../utils/validation/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { CustomButton } from "../components/buttons/CustomButton";
+import { HeaderFormComponent } from "../components/form/HeaderFormComponent";
+import { useNavigation } from "@react-navigation/native";
 
 export const SignInScreen = () => {
   const dispatch = useDispatch();
   const { email, password } = useSelector((state) => state.form);
+  const navigation = useNavigation();
 
   const {
     control,
@@ -31,6 +34,8 @@ export const SignInScreen = () => {
 
   return (
     <View style={styles.container}>
+      <HeaderFormComponent tab={"Sign Up"} onPress={() => navigation.navigate("SignUp")} />
+
       <View style={styles.containerForm}>
         <Controller
           control={control}
