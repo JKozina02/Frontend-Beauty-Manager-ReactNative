@@ -18,7 +18,7 @@ export const InputComponent = ({ placeholder, type, value, onChangeText, error }
 };
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     height: 60,
     marginBottom: 30,
     marginTop: 10,
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     fontFamily: "KohSantepheap-Regular",
     color: "#7B7B7B",
     fontSize: 20,
-    flex: 1,
-    // paddingVertical: 15,
+    height: "100%", 
+    width: "100%", 
     paddingHorizontal: 15,
     backgroundColor: "#F5F5F5",
     borderRadius: 15,
@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     backgroundColor: "#FBDCDC",
   },
-  errorText:{
+  errorText: {
     fontFamily: "KohSantepheap-Regular",
     fontSize: 15,
     marginTop: 20,
-  }
+  },
 });
