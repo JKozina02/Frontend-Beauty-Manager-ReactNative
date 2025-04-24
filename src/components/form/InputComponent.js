@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import { Text } from "react-native";
 import { StyleSheet, TextInput } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export const InputComponent = ({ placeholder, type, value, onChangeText, error }) => {
   return (
@@ -19,17 +18,30 @@ export const InputComponent = ({ placeholder, type, value, onChangeText, error }
 };
 
 const styles = StyleSheet.create({
+  container:{
+    height: 60,
+    marginBottom: 30,
+    marginTop: 10,
+  },
   input: {
     fontFamily: "KohSantepheap-Regular",
     color: "#7B7B7B",
-    fontSize: 18,
+    fontSize: 20,
     flex: 1,
-    paddingVertical: 25,
+    // paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: "#F5F5F5",
     borderRadius: 15,
   },
   inputError: {
     borderColor: "red",
+    borderWidth: 1.5,
+    borderStyle: "solid",
+    backgroundColor: "#FBDCDC",
   },
+  errorText:{
+    fontFamily: "KohSantepheap-Regular",
+    fontSize: 15,
+    marginTop: 20,
+  }
 });
