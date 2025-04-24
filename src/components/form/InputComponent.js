@@ -18,20 +18,16 @@ export const InputComponent = ({ placeholder, type, value, onChangeText, error }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: 60,
-    marginBottom: 30,
-    marginTop: 10,
-  },
   input: {
     fontFamily: "KohSantepheap-Regular",
     color: "#7B7B7B",
     fontSize: 20,
-    height: "100%", 
-    width: "100%", 
+    height: "100%",
+    width: "100%",
     paddingHorizontal: 15,
     backgroundColor: "#F5F5F5",
     borderRadius: 15,
+    height: 60,
   },
   inputError: {
     borderColor: "red",
@@ -42,6 +38,6 @@ const styles = StyleSheet.create({
   errorText: {
     fontFamily: "KohSantepheap-Regular",
     fontSize: 15,
-    marginTop: 20,
+    marginTop: 13,
   },
 });

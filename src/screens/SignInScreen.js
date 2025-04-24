@@ -31,42 +31,62 @@ export const SignInScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Controller
-        control={control}
-        name="email"
-        render={({ field: { onChange, value } }) => (
-          <InputComponent
-            placeholder="Your email"
-            type="email-address"
-            value={value}
-            onChangeText={(text) => {
-              onChange(text);
-              dispatch(setEmail(text));
-            }}
-            error={errors.email?.message}
-          />
-        )}
-      />
+      <View style={styles.containerForm}>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <InputComponent
+              placeholder="Your email"
+              type="email-address"
+              value={value}
+              onChangeText={(text) => {
+                onChange(text);
+                dispatch(setEmail(text));
+              }}
+              error={errors.email?.message}
+            />
+          )}
+        />
 
-      <Controller
-        control={control}
-        name="password"
-        render={({ field: { onChange, value } }) => (
-          <InputComponent
-            placeholder="Your password"
-            type="default"
-            value={value}
-            onChangeText={(text) => {
-              onChange(text);
-              dispatch(setPassword(text));
-            }}
-            error={errors.password?.message}
-          />
-        )}
-      />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <InputComponent
+              placeholder="Your password"
+              type="default"
+              value={value}
+              onChangeText={(text) => {
+                onChange(text);
+                dispatch(setPassword(text));
+              }}
+              error={errors.password?.message}
+            />
+          )}
+        />
 
-      <CustomButton title="Sign In" color={"#FFFAFC"} backgroundColor={"#000000"} onPress={handleSubmit(onSubmit)} />
+        <CustomButton title="Sign In" color={"#FFFAFC"} backgroundColor={"#000000"} onPress={handleSubmit(onSubmit)} />
+      </View>
     </View>
   );
 };
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F7CCC3",
+    flex: 1,
+  },
+  containerForm: {
+    gap: 30,
+    backgroundColor: "#FFFAFC",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "70%",
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 70,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+  },
+});
