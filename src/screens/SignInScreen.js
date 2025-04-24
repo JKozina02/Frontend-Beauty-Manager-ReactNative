@@ -8,6 +8,8 @@ import { Controller, useForm } from "react-hook-form";
 import { CustomButton } from "../components/buttons/CustomButton";
 import { HeaderFormComponent } from "../components/form/HeaderFormComponent";
 import { useNavigation } from "@react-navigation/native";
+import { HeadingComponent } from "../components/heading/HeadingComponent";
+import { CustomTextComponent } from "../components/customText/CustomTextComponent";
 
 export const SignInScreen = () => {
   const dispatch = useDispatch();
@@ -35,7 +37,12 @@ export const SignInScreen = () => {
   return (
     <View style={styles.container}>
       <HeaderFormComponent tab={"Sign Up"} onPress={() => navigation.navigate("SignUp")} />
-
+      <View style={styles.wrapperTitle}>
+        <HeadingComponent children={"Sign In"} />
+        <CustomTextComponent
+          children={"Glad to see you again, it's been a while, come in soon to use the services of our masters"}
+        />
+      </View>
       <View style={styles.containerForm}>
         <Controller
           control={control}
@@ -77,6 +84,11 @@ export const SignInScreen = () => {
   );
 };
 const styles = StyleSheet.create({
+  wrapperTitle: {
+    gap: 20,
+    paddingHorizontal: 20,
+    marginTop: 60,
+  },
   container: {
     backgroundColor: "#F7CCC3",
     flex: 1,

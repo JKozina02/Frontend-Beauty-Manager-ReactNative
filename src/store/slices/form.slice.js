@@ -6,6 +6,7 @@ export const formSlice = createSlice({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     isLoading: false,
   },
   reducers: {
@@ -18,10 +19,14 @@ export const formSlice = createSlice({
     setPassword: (state, action) => {
       state.password = action.payload;
     },
+    setConfirmPassword: (state, action) => {
+      state.confirmPassword = action.payload;
+    },
     resetForm: (state) => {
       state.name = "";
       state.email = "";
       state.password = "";
+      state.confirmPassword = "";
     },
     setLoader: (state, action) => {
       state.isLoading = action.payload;
@@ -29,7 +34,7 @@ export const formSlice = createSlice({
   },
 });
 
-export const { setName, setEmail, setPassword, setLoader } = formSlice.actions;
+export const { setName, setEmail, setPassword, setConfirmPassword, setLoader } = formSlice.actions;
 
 export const selectForm = (state) => state.form;
 

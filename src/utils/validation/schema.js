@@ -30,5 +30,5 @@ export const schema = yup.object().shape({
       }
       return true;
     }),
-  againPassword: yup.string().oneOf([yup.ref("password")], "The passwords must match "),
+  confirmPassword: yup.string().oneOf([yup.ref("password")], "The passwords must match "),
 });
