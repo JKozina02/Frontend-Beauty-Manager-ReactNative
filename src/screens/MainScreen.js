@@ -1,5 +1,12 @@
-import { TopMenuComponent } from "../components/menu/TopMenuComponent";
+import { NameMenuComponent } from "../components/menu/NameMenuComponent";
+import { View } from "react-native";
+import PopMenuComponent from "../components/menu/PopMenuComponent";
 
 export const MainScreen = () => {
-  return <TopMenuComponent category="Kunegunda" />;
+  return (
+    <View>
+      <NameMenuComponent name="Kaczka" />
+      <PopMenuComponent name="Kaczucha" role="Beauty Artist" />
+    </View>
+  );
 };

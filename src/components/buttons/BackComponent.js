@@ -16,7 +16,7 @@ export default function ImageButton({ onPress, source, imageStyle }) {
 
 const styles = StyleSheet.create({
   pressed: {
-    opacity: 0,
+    opacity: 1,
   },
   notPressed: {
     opacity: 1,

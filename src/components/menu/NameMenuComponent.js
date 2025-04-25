@@ -1,8 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Text } from "react-native";
 import BackComponent from "../buttons/BackComponent";
+import { useDispatch } from "react-redux";
+import { openMenu } from "../../store/slices/MenuSlice";
 
 export const NameMenuComponent = ({ name }) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.nameContainer}>
@@ -12,7 +15,7 @@ export const NameMenuComponent = ({ name }) => {
 
       <StatusBar style="auto" />
       <BackComponent
-        onPress={() => console.log("Menu")}
+        onPress={() => dispatch(openMenu())}
         imageStyle={styles.Menu}
         source={require("../../../assets/menu/burger.png")}
       />
