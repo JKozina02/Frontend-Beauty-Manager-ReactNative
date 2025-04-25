@@ -1,8 +1,6 @@
-import { Pressable, View, Image, StyleSheet, Dimensions, TextInput } from "react-native";
+import { Pressable, View, Image, StyleSheet, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../store/slices/searchSlice";
-
-const { width } = Dimensions.get("window");
 
 export default function SearchBarComponent() {
   const dispatch = useDispatch();
@@ -18,6 +16,7 @@ export default function SearchBarComponent() {
         placeholderTextColor="#888"
         value={query}
         onChangeText={(text) => dispatch(setSearchQuery(text))}
+        style={styles.input}
       />
     </View>
   );
@@ -43,6 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
     fontSize: 16,
-    color: "#000",
+    backgroundColor: "#ffffff",
   },
 });

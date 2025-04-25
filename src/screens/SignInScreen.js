@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import SearchBarComponent from "../components/searchBar/searchBarComponent";
-import FiltersButtonComponent from "../components/filters/filtersButtonComponent";
+import FiltersButtonComponent from "../components/filters/subComponents/filtersButtonComponent";
 import FiltersComponent from "../components/filters/filtersComponent";
 export const SignInScreen = () => {
   return (
