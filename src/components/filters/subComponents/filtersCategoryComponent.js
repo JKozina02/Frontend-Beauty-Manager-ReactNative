@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   categoryButton: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#f5f5f5",
     padding: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   categoryButtonText: {
     fontFamily: "KohSantepheap-Regular",
-    fontSize: 16,
+    fontSize: 14,
   },
   selectedCategoryButtonText: {
     color: "#ffffff",

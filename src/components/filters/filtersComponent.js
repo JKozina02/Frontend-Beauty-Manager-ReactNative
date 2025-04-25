@@ -1,9 +1,10 @@
 import { Modal, View, StyleSheet, Pressable, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal } from "../../store/slices/filterSlice";
-import FiltersHeaderComponent from "./subComponents/filtersHeaderComponent";
-import FiltersCategoryComponent from "./subComponents/filtersCategoryComponent";
-import FiltersPriceRangeComponent from "./subComponents/filtersPriceRangeComponent";
+import FiltersHeaderComponent from "./subComponents/FiltersHeaderComponent";
+import FiltersCategoryComponent from "./subComponents/FiltersCategoryComponent";
+import FiltersPriceRangeComponent from "./subComponents/FiltersPriceRangeComponent";
+import FilterCallendarComponent from "./subComponents/FiltersCallendarComponent";
 
 export default FilterComponent = () => {
   const dispatch = useDispatch();
@@ -16,13 +17,14 @@ export default FilterComponent = () => {
       onRequestClose={() => dispatch(hideModal())}
     >
       <View style={styles.container}>
-        <FiltersHeaderComponent />
+        <FiltersHeaderComponent/>
         <Text style={styles.filterText}>Category</Text>
-        <FiltersCategoryComponent />
+        <FiltersCategoryComponent/>
         <Text style={styles.filterText}>Price Range</Text>
-        <FiltersPriceRangeComponent />
+        <FiltersPriceRangeComponent/>
         <Text style={styles.filterText}>Date</Text>
-        <Pressable style={styles.button} onPress={() => null}>
+        <FilterCallendarComponent/>
+        <Pressable style={styles.button} onPress={() => dispatch(hideModal())}>
           <Text style={styles.buttonText}>Save</Text>
         </Pressable>
       </View>
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
-    padding: 25,
+    padding: 20,
   },
   button: {
     backgroundColor: "#000000",
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontFamily: "KohSantepheap-Bold",
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: 8,
   },
   icon: {
     height: 30,

@@ -23,7 +23,9 @@ const filterSlice = createSlice({
     },
 
     removeDate: (state, action) => {
-      state.filters.dates = state.filters.dates.filter((date) => date !== action.payload);
+      state.filters.dates = state.filters.dates.filter(
+        (date) => date !== action.payload
+      );
     },
 
     setCategory: (state, action) => {
