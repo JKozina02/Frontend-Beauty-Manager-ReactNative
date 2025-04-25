@@ -1,0 +1,55 @@
+import { Text, StyleSheet, View, Pressable } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../../../store/slices/filterSlice";
+
+export default FiltersCategoryComponent = () => {
+  const dispatch = useDispatch();
+  const selectedCategory = useSelector((state) => state.filter.filters.category);
+
+  const categories = ["Nails", "Hair", "Lashes", "Brows", "Make Up"];
+  return (
+    <View style={styles.categoriesContainer}>
+      {categories.map((category) => (
+        <Pressable
+          key={category}
+          style={[
+            styles.categoryButton,
+            selectedCategory === category && styles.selectedCategoryButton, // Podświetlenie, jeśli kategoria jest wybrana
+          ]}
+          onPress={() => dispatch(setCategory(category))} // Ustaw kategorię w Redux
+        >
+          <Text style={styles.categoryButtonText}>{category}</Text>
+        </Pressable>
+      ))}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  filterText: {
+    fontSize: 20,
+  },
+  categoriesContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  categoryButton: {
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    margin: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  selectedCategoryButton: {
+    backgroundColor: "#F7CCC3",
+  },
+  categoryButtonText: {
+    fontFamily: "KohSantepheap-Regular",
+    fontSize: 16,
+  },
+  selectedCategoryButtonText: {
+    color: "#ffffff",
+  },
+});
