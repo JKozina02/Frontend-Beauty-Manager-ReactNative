@@ -14,8 +14,8 @@ export const LoadingScreen = () => {
       <View style={styles.containerLogo}>
         <LogoComponent />
         <View style={{ position: "absolute", left: "-213", top: "233" }}>
-        <CircleComponent width="500" height="500" />
-      </View>
+          <CircleComponent width="500" height="500" />
+        </View>
 
         <View style={styles.wrapperButtons}></View>
       </View>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   wrapperTitle: {
     gap: 25,
   },
-  
+
   containerLogo: {
     position: "absolute",
     top: "35%",
