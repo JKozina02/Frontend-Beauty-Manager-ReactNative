@@ -1,4 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { HeaderFormComponent } from "../components/form/HeaderFormComponent";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
 import { CustomTextComponent } from "../components/customText/CustomTextComponent";
@@ -38,108 +46,126 @@ export const SignUpScreen = () => {
     console.log("Form submitted:", data);
   };
   return (
-    <View style={styles.container}>
-      <HeaderFormComponent tab={"Sign In"} onPress={() => navigation.navigate("SignIn")} />
-      <View style={styles.wrapperTitle}>
-        <HeadingComponent children={"Sign Up"} />
-        <CustomTextComponent
-          children={
-            "Sign up if you haven't joined our beauty community yet, do it soon to use the services of our masters."
-          }
-        />
-      </View>
-      <View style={styles.containerForm}>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field: { onChange, value } }) => (
-            <InputComponent
-              placeholder="Your name"
-              type="default"
-              value={value}
-              onChangeText={(text) => {
-                onChange(text);
-                dispatch(setName(text));
-              }}
-              error={errors.name?.message}
-            />
-          )}
-        />
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+          <View style={styles.innerContainer}>
+            <HeaderFormComponent tab={"Sign In"} onPress={() => navigation.navigate("SignIn")} />
 
-        <Controller
-          control={control}
-          name="email"
-          render={({ field: { onChange, value } }) => (
-            <InputComponent
-              placeholder="Your email"
-              type="email-address"
-              value={value}
-              onChangeText={(text) => {
-                onChange(text);
-                dispatch(setEmail(text));
-              }}
-              error={errors.email?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="password"
-          render={({ field: { onChange, value } }) => (
-            <InputComponent
-              placeholder="Your password"
-              type="default"
-              secureTextEntry
-              value={value}
-              onChangeText={(text) => {
-                onChange(text);
-                dispatch(setPassword(text));
-              }}
-              error={errors.password?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="confirmPassword"
-          render={({ field: { onChange, value } }) => (
-            <InputComponent
-              placeholder="Repeat password"
-              type="default"
-              secureTextEntry
-              value={value}
-              onChangeText={(text) => {
-                onChange(text);
-                dispatch(setConfirmPassword(text));
-              }}
-              error={errors.confirmPassword?.message}
-            />
-          )}
-        />
+            <View style={styles.wrapperTitle}>
+              <HeadingComponent children={"Sign Up"} />
+              <CustomTextComponent
+                children={
+                  "Sign up if you haven't joined our beauty community yet, do it soon to use the services of our masters."
+                }
+              />
+            </View>
+            <View style={styles.containerForm}>
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { onChange, value } }) => (
+                  <InputComponent
+                    placeholder="Your name"
+                    type="default"
+                    value={value}
+                    onChangeText={(text) => {
+                      onChange(text);
+                      dispatch(setName(text));
+                    }}
+                    error={errors.name?.message}
+                  />
+                )}
+              />
 
-        <CustomButton title="Sign In" color={"#FFFAFC"} backgroundColor={"#000000"} onPress={handleSubmit(onSubmit)} />
-      </View>
-    </View>
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, value } }) => (
+                  <InputComponent
+                    placeholder="Your email"
+                    type="email-address"
+                    value={value}
+                    onChangeText={(text) => {
+                      onChange(text);
+                      dispatch(setEmail(text));
+                    }}
+                    error={errors.email?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, value } }) => (
+                  <InputComponent
+                    placeholder="Your password"
+                    type="default"
+                    secureTextEntry
+                    value={value}
+                    onChangeText={(text) => {
+                      onChange(text);
+                      dispatch(setPassword(text));
+                    }}
+                    error={errors.password?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="confirmPassword"
+                render={({ field: { onChange, value } }) => (
+                  <InputComponent
+                    placeholder="Repeat password"
+                    type="default"
+                    secureTextEntry
+                    value={value}
+                    onChangeText={(text) => {
+                      onChange(text);
+                      dispatch(setConfirmPassword(text));
+                    }}
+                    error={errors.confirmPassword?.message}
+                  />
+                )}
+              />
+
+              <CustomButton
+                title="Sign Up"
+                color={"#FFFAFC"}
+                backgroundColor={"#000000"}
+                onPress={handleSubmit(onSubmit)}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F7CCC3",
+    flex: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    paddingBottom: 40,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
   wrapperTitle: {
     gap: 20,
     paddingHorizontal: 20,
     marginTop: 60,
   },
-  container: {
-    backgroundColor: "#F7CCC3",
-    flex: 1,
-  },
   containerForm: {
     gap: 30,
     backgroundColor: "#FFFAFC",
-    position: "absolute",
-    bottom: 0,
     width: "100%",
-    height: "70%",
+    height: "80%",
+    marginTop: 20,
     paddingHorizontal: 20,
     paddingTop: 50,
     paddingBottom: 70,
