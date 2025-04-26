@@ -1,19 +1,23 @@
-import { View, StyleSheet, Pressable, Text } from "react-native";
-import { Image } from "expo-image";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { hideModal, resetFilters } from "../../../store/slices/filterSlice";
 import { useDispatch } from "react-redux";
-
+import { HeadingComponent } from "../../heading/HeadingComponent";
 export default FiltersHeaderComponent = () => {
   const dispatch = useDispatch();
   return (
     <View style={styles.header}>
-      <Pressable onPress={() => dispatch(hideModal())}>
-        <Image source={require("../../../../assets/back.png")} style={styles.icon} contentFit="contain" />
-      </Pressable>
-      <Text style={{ fontFamily: "KohSantepheap-Bold", fontSize: 24 }}>Filter</Text>
-      <Pressable onPress={() => dispatch(resetFilters())}>
-        <Text style={{ fontSize: 16, fontFamily: "KohSantepheap-Regular" }}>Reset</Text>
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => dispatch(hideModal())}>
+          <AntDesign name="swapleft" size={40} />
+        </TouchableOpacity>
+      </View>
+     <HeadingComponent level={3} children={"Filters"}/>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => dispatch(resetFilters())}>
+          <Text style={{ fontSize: 16, fontFamily: "KohSantepheap-Regular" }}>Reset</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -24,9 +28,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-
-  icon: {
-    height: 30,
-    width: 30,
-  },
+  buttonContainer:{
+    width: "15%",
+    alignItems: "center"
+  }
 });

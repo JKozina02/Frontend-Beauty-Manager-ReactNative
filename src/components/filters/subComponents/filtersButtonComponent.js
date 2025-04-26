@@ -1,5 +1,5 @@
-import { View, Pressable, StyleSheet } from "react-native";
-import { Image } from "expo-image";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
+import Entypo from '@expo/vector-icons/Entypo';
 import { useDispatch } from "react-redux";
 import { showModal } from "../../../store/slices/filterSlice";
 
@@ -8,9 +8,9 @@ export default FiltersButtonComponent = () => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => dispatch(showModal())}>
-        <Image source={require("../../../../assets/filters.png")} style={styles.icon} contentFit="contain" />
-      </Pressable>
+      <TouchableOpacity onPress={() => dispatch(showModal())}>
+        <Entypo name="sound-mix" size={30} color="#F7CCC3" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -25,9 +25,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     margin: 5,
-  },
-  icon: {
-    height: 30,
-    width: 30,
   },
 });

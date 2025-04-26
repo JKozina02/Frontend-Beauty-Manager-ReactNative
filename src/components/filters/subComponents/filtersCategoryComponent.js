@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Pressable } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../../../store/slices/filterSlice";
 
@@ -10,7 +10,7 @@ export default FiltersCategoryComponent = () => {
   return (
     <View style={styles.categoriesContainer}>
       {categories.map((category) => (
-        <Pressable
+        <TouchableOpacity
           key={category}
           style={[
             styles.categoryButton,
@@ -19,7 +19,7 @@ export default FiltersCategoryComponent = () => {
           onPress={() => dispatch(setCategory(category))} // Ustaw kategorię w Redux
         >
           <Text style={styles.categoryButtonText}>{category}</Text>
-        </Pressable>
+        </TouchableOpacity>
       ))}
     </View>
   );

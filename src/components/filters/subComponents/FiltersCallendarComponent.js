@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Image } from "expo-image";
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useDispatch, useSelector } from "react-redux";
 import { addDate, removeDate } from "../../../store/slices/filterSlice";
 export default FilterCallendarComponent = () => {
@@ -11,7 +11,7 @@ export default FilterCallendarComponent = () => {
   const dispatch = useDispatch();
   const selectedDates = useSelector((state) => state.filter.filters.dates);
 
-  const daysOfWeek =  [ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+  const daysOfWeek = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const getDaysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
@@ -25,43 +25,36 @@ export default FilterCallendarComponent = () => {
   const toggleDate = (day) => {
     const date = `${year}-${month + 1}-${day}`;
     if (selectedDates.includes(date)) {
-      dispatch(removeDate(date)); 
+      dispatch(removeDate(date));
     } else {
-      dispatch(addDate(date)); 
+      dispatch(addDate(date));
     }
   };
 
   const renderDays = () => {
-    let all = 0
+    let all = 0;
     const daysInMonth = getDaysInMonth(month, year);
     const firstDay = getFirstDayOfMonth(month, year);
     const days = [];
 
     for (let i = 0; i < firstDay; i++) {
-        all++
-        days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
+      all++;
+      days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-        const date = `${year}-${month + 1}-${i}`;
-        const isSelected = selectedDates.includes(date);
-        all++
-        days.push(
-            <TouchableOpacity
-            key={i}
-            style={[
-              styles.day,
-              isSelected && styles.selectedDay
-            ]}
-            onPress={() => toggleDate(i)}
-          >
-            <Text style={styles.dayText}>{i}</Text>
-          </TouchableOpacity>
+      const date = `${year}-${month + 1}-${i}`;
+      const isSelected = selectedDates.includes(date);
+      all++;
+      days.push(
+        <TouchableOpacity key={i} style={[styles.day, isSelected && styles.selectedDay]} onPress={() => toggleDate(i)}>
+          <Text style={styles.dayText}>{i}</Text>
+        </TouchableOpacity>
       );
     }
 
     for (let i = all; i < 35; i++) {
-        days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
+      days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
     }
 
     return days;
@@ -89,13 +82,13 @@ export default FilterCallendarComponent = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handlePrevMonth}>
-            <Image source={require("../../../../assets/pointLeft.png")} style={styles.icon} contentFit="contain"/>
+        <AntDesign name="caretleft" style={styles.icon} />
         </TouchableOpacity>
-        <Text style={styles.headerText}>
-        {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
+        <Text style={styles.callendarMonth}>
+          {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
         </Text>
         <TouchableOpacity onPress={handleNextMonth}>
-            <Image source={require("../../../../assets/pointRight.png")} style={styles.icon} contentFit="contain"/> 
+        <AntDesign name="caretright" style={styles.icon} />
         </TouchableOpacity>
       </View>
       <View style={styles.weekdays}>
@@ -114,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     borderRadius: 8,
-    borderWidth: 1, 
+    borderWidth: 1,
     borderColor: "#F7CCC3",
   },
   header: {
@@ -132,6 +125,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#761BE4",
   },
+  callendarMonth:{
+    fontFamily: "KohSantepheap-Bold",
+    fontSize: 18,
+  },
   weekdays: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -140,13 +137,13 @@ const styles = StyleSheet.create({
   weekday: {
     flex: 1,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "KohSantepheap-Bold",
     color: "#898DA9",
   },
   days: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   day: {
     width: "13%",
@@ -159,19 +156,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   selectedDay: {
-    backgroundColor: "#F7CCC3", 
+    backgroundColor: "#F7CCC3",
   },
   dayText: {
     fontSize: 16,
   },
   emptyDay: {
     width: "13%",
-    height:"13%",
+    height: "13%",
     aspectRatio: 1,
     marginBottom: 8,
   },
-  icon:{
+  icon: {
     height: 15,
-    width: 15
-  }
+    width: 15,
+    color: "#F7CCC3"
+  },
 });

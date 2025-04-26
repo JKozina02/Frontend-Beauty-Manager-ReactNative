@@ -1,16 +1,16 @@
-import { Pressable, View, Image, StyleSheet, TextInput } from "react-native";
+import { TouchableOpacity, View, Image, StyleSheet, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../store/slices/searchSlice";
 
 export default function SearchBarComponent() {
   const dispatch = useDispatch();
   const query = useSelector((state) => state.search.query);
-
+  //TODO IMPLEMENT SEARCH
   return (
     <View style={styles.container}>
-      <Pressable>
+      <TouchableOpacity>
         <Image source={require("../../../assets/searchicon.png")} style={styles.icon} />
-      </Pressable>
+      </TouchableOpacity>
       <TextInput
         placeholder="Search..."
         placeholderTextColor="#888"
