@@ -2,9 +2,10 @@ import { Modal, View, StyleSheet, Pressable, Text } from "react-native";
 import { Image } from "expo-image";
 import { useDispatch, useSelector } from "react-redux";
 import { closeMenu } from "../../store/slices/MenuSlice";
-import MenuOption from "./MenuOptionComponent";
+import VectorImage from "../buttons/TestVectorIconsComponent";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default PopMenuComponent = ({ name, role }) => {
+export default PopMenuComponent = ({ userName, role }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.menu.isOpen);
   return (
@@ -15,53 +16,81 @@ export default PopMenuComponent = ({ name, role }) => {
             <Image style={styles.person} source={require("../../../assets/menu/person1.png")} />
 
             <View style={styles.data}>
-              <Text style={styles.name}>{name}</Text>
+              <Text style={styles.name}>{userName}</Text>
               <Text style={styles.role}>{role}</Text>
             </View>
 
             <Pressable onPress={() => dispatch(closeMenu())}>
-              <Image style={styles.iks} source={require("../../../assets/menu/xMenu.png")} />
+              <AntDesign name="close" size={40} color="black" style={{ margin: 10 }} />
             </Pressable>
           </View>
 
           <View style={{ flexDirection: "column", alignItems: "space between", margin: 10, width: "100%" }}>
-            <MenuOption
-              source={require("../../../assets/menu/profile.png")}
+            <VectorImage
+              onPress={() => console.log("Profile")}
+              source="account-outline"
               imageStyle={styles.imgOptionStyle}
               option="Profile"
+              iconLibrary="MaterialCommunityIcons"
+              sizer={38}
+              colour="#000000"
             />
-            <MenuOption
-              source={require("../../../assets/menu/policy.png")}
+            <VectorImage
+              onPress={() => console.log("Privacy policy")}
+              source="exclamationcircleo"
               imageStyle={styles.imgOptionStyle}
               option="Privacy policy"
+              iconLibrary="AntDesign"
+              sizer={32}
+              colour="#000000"
             />
-            <MenuOption
-              source={require("../../../assets/menu/visits.png")}
+            <VectorImage
+              onPress={() => console.log("My visits")}
+              source="location-outline"
               imageStyle={styles.imgOptionStyle}
               option="My visits"
+              iconLibrary="Ionicons"
+              sizer={36}
+              colour="#000000"
             />
-            <MenuOption
-              source={require("../../../assets/menu/fav.png")}
+            <VectorImage
+              onPress={() => console.log("Favorites")}
+              source="hearto"
               imageStyle={styles.imgOptionStyle}
               option="Favorites"
+              iconLibrary="AntDesign"
+              sizer={32}
+              colour="#000000"
             />
-            <MenuOption
-              source={require("../../../assets/menu/us.png")}
+            <VectorImage
+              onPress={() => console.log("About us")}
+              source="account-group-outline"
               imageStyle={styles.imgOptionStyle}
               option="About us"
+              iconLibrary="MaterialCommunityIcons"
+              sizer={36}
+              colour="#000000"
             />
-            <MenuOption
-              source={require("../../../assets/menu/settings.png")}
+            <VectorImage
+              onPress={() => console.log("Settings")}
+              source="settings-outline"
               imageStyle={styles.imgOptionStyle}
               option="Settings"
+              iconLibrary="Ionicons"
+              sizer={32}
+              colour={"#000000"}
             />
           </View>
         </View>
         <View style={styles.outLog}>
-          <MenuOption
-            source={require("../../../assets/menu/logOut.png")}
+          <VectorImage
+            onPress={() => console.log("Log out")}
+            source="log-out-outline"
             imageStyle={styles.imgOptionStyle}
             option="Log out"
+            iconLibrary="Ionicons"
+            sizer={35}
+            colour="#F7CCC3"
           />
         </View>
       </View>
@@ -108,9 +137,10 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
   imgOptionStyle: {
-    width: 32,
-    height: 32,
+    width: 40,
+    height: 35,
     margin: 10,
+    contentFit: "contain",
   },
   outLog: {
     flexDirection: "row",

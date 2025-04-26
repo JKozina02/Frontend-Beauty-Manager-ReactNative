@@ -1,25 +1,31 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text } from "react-native";
-import BackComponent from "../buttons/BackComponent";
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import BackComponent from "../buttons/ImageButtonComponent";
 import { useDispatch } from "react-redux";
 import { openMenu } from "../../store/slices/MenuSlice";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export const TopMenuComponent = ({ category }) => {
   const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
-      <BackComponent
-        onPress={() => console.log("Back")}
-        imageStyle={styles.Back}
-        source={require("../../../assets/menu/arrow.png")}
-      />
+      {/* STRZAŁKA */}
+      <Pressable onPress={() => console.log("Back")}>
+        <AntDesign name="swapleft" size={50} color="black" style={styles.Back} />
+      </Pressable>
+
+      {/* NAZWA KATEGORII */}
       <Text style={styles.Category}> {category} </Text>
-      <StatusBar style="auto" />
+
+      {/* MENU BURGER */}
       <BackComponent
         onPress={() => dispatch(openMenu())}
         imageStyle={styles.Menu}
         source={require("../../../assets/menu/burger.png")}
       />
+
+      <StatusBar style="auto" />
     </View>
   );
 };
@@ -40,10 +46,9 @@ const styles = StyleSheet.create({
   },
   //strzałka back
   Back: {
-    width: "37",
-    height: "11",
-    resizeMode: "contain",
-    paddingTop: "80",
+    width: 50,
+    height: 50,
+    paddingTop: 15,
   },
   //burger menu
   Menu: {

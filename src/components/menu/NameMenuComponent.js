@@ -1,16 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Text } from "react-native";
-import BackComponent from "../buttons/BackComponent";
+import BackComponent from "../buttons/ImageButtonComponent";
 import { useDispatch } from "react-redux";
 import { openMenu } from "../../store/slices/MenuSlice";
 
-export const NameMenuComponent = ({ name }) => {
+export const NameMenuComponent = ({ userName }) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.nameContainer}>
         <Text style={styles.Bold}>Welcome,</Text>
-        <Text style={styles.Name}>{name}.</Text>
+        <Text style={styles.Name}>{userName}.</Text>
       </View>
 
       <StatusBar style="auto" />
