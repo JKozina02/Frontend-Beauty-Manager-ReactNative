@@ -1,9 +1,9 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import Entypo from '@expo/vector-icons/Entypo';
+import Entypo from "@expo/vector-icons/Entypo";
 import { useDispatch } from "react-redux";
 import { showModal } from "../../../store/slices/filterSlice";
 
-export default FiltersButtonComponent = () => {
+export const FiltersButtonComponent = () => {
   const dispatch = useDispatch();
 
   return (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPriceRange } from "../../../store/slices/filterSlice";
 import Slider from "@react-native-community/slider";
 
-export default FiltersPriceRangeComponent = () => {
+export const FiltersPriceRangeComponent = () => {
   const globalPriceRange = useSelector((state) => state.filter.filters.priceRange);
   const dispatch = useDispatch();
   const [sliderValue, setSliderValue] = useState(globalPriceRange[1]);

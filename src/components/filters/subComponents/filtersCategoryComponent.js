@@ -2,7 +2,7 @@ import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../../../store/slices/filterSlice";
 
-export default FiltersCategoryComponent = () => {
+export const FiltersCategoryComponent = () => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector((state) => state.filter.filters.category);
 

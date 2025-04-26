@@ -1,9 +1,10 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { hideModal, resetFilters } from "../../../store/slices/filterSlice";
 import { useDispatch } from "react-redux";
 import { HeadingComponent } from "../../heading/HeadingComponent";
-export default FiltersHeaderComponent = () => {
+
+export const FiltersHeaderComponent = () => {
   const dispatch = useDispatch();
   return (
     <View style={styles.header}>
@@ -12,7 +13,7 @@ export default FiltersHeaderComponent = () => {
           <AntDesign name="swapleft" size={40} />
         </TouchableOpacity>
       </View>
-     <HeadingComponent level={3} children={"Filters"}/>
+      <HeadingComponent level={3} children={"Filters"} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => dispatch(resetFilters())}>
           <Text style={{ fontSize: 16, fontFamily: "KohSantepheap-Regular" }}>Reset</Text>
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  buttonContainer:{
+  buttonContainer: {
     width: "15%",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

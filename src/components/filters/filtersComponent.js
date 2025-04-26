@@ -1,12 +1,13 @@
 import { Modal, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal } from "../../store/slices/filterSlice";
-import FiltersHeaderComponent from "./subComponents/FiltersHeaderComponent";
-import FiltersCategoryComponent from "./subComponents/FiltersCategoryComponent";
-import FiltersPriceRangeComponent from "./subComponents/FiltersPriceRangeComponent";
-import FilterCallendarComponent from "./subComponents/FiltersCallendarComponent";
+import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
+import { FiltersCategoryComponent } from "./subComponents/FiltersCategoryComponent";
+import { FiltersPriceRangeComponent } from "./subComponents/FiltersPriceRangeComponent";
+import { FilterCallendarComponent } from "./subComponents/FiltersCallendarComponent";
 import { HeadingComponent } from "../heading/HeadingComponent";
-export default FilterComponent = () => {
+
+export const FilterComponent = () => {
   const dispatch = useDispatch();
   const isFiltersVisible = useSelector((state) => state.filter.isFiltersVisible);
   //TODO IMPLEMENT SAVE
@@ -19,11 +20,11 @@ export default FilterComponent = () => {
     >
       <View style={styles.container}>
         <FiltersHeaderComponent />
-        <HeadingComponent level="4" children={"Category"}/>
+        <HeadingComponent level="4" children={"Category"} />
         <FiltersCategoryComponent />
-        <HeadingComponent level="4" children={"Price Range"}/>
+        <HeadingComponent level="4" children={"Price Range"} />
         <FiltersPriceRangeComponent />
-        <HeadingComponent level="4" children={"Date"}/>
+        <HeadingComponent level="4" children={"Date"} />
         <FilterCallendarComponent />
         <TouchableOpacity style={styles.button} onPress={() => dispatch(hideModal())}>
           <Text style={styles.buttonText}>Save</Text>
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     padding: 15,
-    justifyContent: "space-between--"
+    justifyContent: "space-between--",
   },
   button: {
     backgroundColor: "#000000",
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
   },
-  category:{
+  category: {
     marginTop: 5,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });

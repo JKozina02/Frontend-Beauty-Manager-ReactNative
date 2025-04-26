@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
 import { addDate, removeDate } from "../../../store/slices/filterSlice";
-export default FilterCallendarComponent = () => {
+
+export const FilterCallendarComponent = () => {
   const currentDate = new Date();
   const [month, setMonth] = useState(currentDate.getMonth());
   const [year, setYear] = useState(currentDate.getFullYear());
@@ -82,13 +83,13 @@ export default FilterCallendarComponent = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handlePrevMonth}>
-        <AntDesign name="caretleft" style={styles.icon} />
+          <AntDesign name="caretleft" style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.callendarMonth}>
           {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
         </Text>
         <TouchableOpacity onPress={handleNextMonth}>
-        <AntDesign name="caretright" style={styles.icon} />
+          <AntDesign name="caretright" style={styles.icon} />
         </TouchableOpacity>
       </View>
       <View style={styles.weekdays}>
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#761BE4",
   },
-  callendarMonth:{
+  callendarMonth: {
     fontFamily: "KohSantepheap-Bold",
     fontSize: 18,
   },
@@ -170,6 +171,6 @@ const styles = StyleSheet.create({
   icon: {
     height: 15,
     width: 15,
-    color: "#F7CCC3"
+    color: "#F7CCC3",
   },
 });
