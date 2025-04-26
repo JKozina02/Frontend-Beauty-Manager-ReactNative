@@ -4,7 +4,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
 import { addDate, removeDate } from "../../../store/slices/filterSlice";
 
-export const FilterCallendarComponent = () => {
+export const FiltersCallendarComponent = () => {
   const currentDate = new Date();
   const [month, setMonth] = useState(currentDate.getMonth());
   const [year, setYear] = useState(currentDate.getFullYear());
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   day: {
     width: "13%",
-    height: "13%",
+    height: "auto",
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",

@@ -15,8 +15,12 @@ export const FiltersPriceRangeComponent = () => {
   return (
     <View>
       <View style={styles.sliderNumbers}>
-        <Text style={{ fontFamily: "KohSantepheap-Regular" }}>0</Text>
-        <Text style={{ fontFamily: "KohSantepheap-Regular" }}>{sliderValue}</Text>
+        <View style={styles.numberContainer}>
+          <Text style={{ fontFamily: "KohSantepheap-Regular" }}>0</Text>
+        </View>
+        <View style={styles.numberContainer}>
+          <Text style={{ fontFamily: "KohSantepheap-Regular" }}>{sliderValue}</Text>
+        </View>
       </View>
       <Slider
         style={styles.slider}
@@ -45,4 +49,8 @@ const styles = StyleSheet.create({
   slider: {
     marginHorizontal: 25,
   },
+  numberContainer:{
+    width:40,
+    alignItems: "center",
+  }
 });

@@ -4,10 +4,10 @@ import { hideModal } from "../../store/slices/filterSlice";
 import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
 import { FiltersCategoryComponent } from "./subComponents/FiltersCategoryComponent";
 import { FiltersPriceRangeComponent } from "./subComponents/FiltersPriceRangeComponent";
-import { FilterCallendarComponent } from "./subComponents/FiltersCallendarComponent";
+import { FiltersCallendarComponent } from "./subComponents/FiltersCallendarComponent";
 import { HeadingComponent } from "../heading/HeadingComponent";
 
-export const FilterComponent = () => {
+export const FiltersComponent = () => {
   const dispatch = useDispatch();
   const isFiltersVisible = useSelector((state) => state.filter.isFiltersVisible);
   //TODO IMPLEMENT SAVE
@@ -20,12 +20,12 @@ export const FilterComponent = () => {
     >
       <View style={styles.container}>
         <FiltersHeaderComponent />
-        <HeadingComponent level="4" children={"Category"} />
+        <HeadingComponent level={4} children={"Category"} />
         <FiltersCategoryComponent />
-        <HeadingComponent level="4" children={"Price Range"} />
+        <HeadingComponent level={4} children={"Price Range"} />
         <FiltersPriceRangeComponent />
-        <HeadingComponent level="4" children={"Date"} />
-        <FilterCallendarComponent />
+        <HeadingComponent level={4} children={"Date"} />
+        <FiltersCallendarComponent />
         <TouchableOpacity style={styles.button} onPress={() => dispatch(hideModal())}>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>

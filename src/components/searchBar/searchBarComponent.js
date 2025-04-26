@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Image, StyleSheet, TextInput } from "react-nati
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../store/slices/searchSlice";
 
-export default function SearchBarComponent() {
+export const SearchBarComponent = () => {
   const dispatch = useDispatch();
   const query = useSelector((state) => state.search.query);
   //TODO IMPLEMENT SEARCH
