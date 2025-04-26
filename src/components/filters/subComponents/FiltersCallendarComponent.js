@@ -3,25 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
 import { addDate, removeDate } from "../../../store/slices/filterSlice";
+import { daysOfWeek, getDaysInMonth, getFirstDayOfMonth } from "../../../utils/callendar/callendarUtils";
 
 export const FiltersCallendarComponent = () => {
   const currentDate = new Date();
   const [month, setMonth] = useState(currentDate.getMonth());
   const [year, setYear] = useState(currentDate.getFullYear());
-
   const dispatch = useDispatch();
   const selectedDates = useSelector((state) => state.filter.filters.dates);
-
-  const daysOfWeek = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-
-  const getDaysInMonth = (month, year) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
-
-  const getFirstDayOfMonth = (month, year) => {
-    const firstDay = new Date(year, month, 1).getDay();
-    return firstDay === 0 ? 6 : firstDay - 1;
-  };
 
   const toggleDate = (day) => {
     const date = `${year}-${month + 1}-${day}`;
@@ -54,7 +43,7 @@ export const FiltersCallendarComponent = () => {
       );
     }
 
-    for (let i = all; i < 35; i++) {
+    for (let i = all; i < 42; i++) {
       days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
     }
 
@@ -81,32 +70,39 @@ export const FiltersCallendarComponent = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handlePrevMonth}>
-          <AntDesign name="caretleft" style={styles.icon} />
-        </TouchableOpacity>
-        <Text style={styles.callendarMonth}>
-          {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
-        </Text>
-        <TouchableOpacity onPress={handleNextMonth}>
-          <AntDesign name="caretright" style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.weekdays}>
-        {daysOfWeek.map((day, index) => (
-          <Text key={index} style={styles.weekday}>
-            {day}
+      <View style={styles.callendar}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handlePrevMonth}>
+            <AntDesign name="caretleft" style={styles.icon} />
+          </TouchableOpacity>
+          <Text style={styles.callendarMonth}>
+            {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
           </Text>
-        ))}
+          <TouchableOpacity onPress={handleNextMonth}>
+            <AntDesign name="caretright" style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.weekdays}>
+          {daysOfWeek.map((day, index) => (
+            <Text key={index} style={styles.weekday}>
+              {day}
+            </Text>
+          ))}
+        </View>
+        <View style={styles.days}>{renderDays()}</View>
       </View>
-      <View style={styles.days}>{renderDays()}</View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
+    flex: 1,
+    alignItems: "center",
+  },
+  callendar: {
+    padding: 10,
+    width: "90%",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#F7CCC3",
@@ -116,15 +112,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     marginBottom: 10,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  navButton: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#761BE4",
   },
   callendarMonth: {
     fontFamily: "KohSantepheap-Bold",
@@ -148,7 +135,7 @@ const styles = StyleSheet.create({
   },
   day: {
     width: "13%",
-    height: "auto",
+    height: "13%",
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -167,10 +154,5 @@ const styles = StyleSheet.create({
     height: "13%",
     aspectRatio: 1,
     marginBottom: 8,
-  },
-  icon: {
-    height: 15,
-    width: 15,
-    color: "#F7CCC3",
   },
 });

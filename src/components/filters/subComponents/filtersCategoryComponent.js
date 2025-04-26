@@ -12,11 +12,8 @@ export const FiltersCategoryComponent = () => {
       {categories.map((category) => (
         <TouchableOpacity
           key={category}
-          style={[
-            styles.categoryButton,
-            selectedCategory === category && styles.selectedCategoryButton, // Podświetlenie, jeśli kategoria jest wybrana
-          ]}
-          onPress={() => dispatch(setCategory(category))} // Ustaw kategorię w Redux
+          style={[styles.categoryButton, selectedCategory === category && styles.selectedCategoryButton]}
+          onPress={() => dispatch(setCategory(category))}
         >
           <Text style={styles.categoryButtonText}>{category}</Text>
         </TouchableOpacity>

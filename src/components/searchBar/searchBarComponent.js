@@ -1,6 +1,7 @@
-import { TouchableOpacity, View, Image, StyleSheet, TextInput } from "react-native";
+import { TouchableOpacity, View, StyleSheet, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../store/slices/searchSlice";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export const SearchBarComponent = () => {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ export const SearchBarComponent = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <Image source={require("../../../assets/searchicon.png")} style={styles.icon} />
+        <AntDesign name="search1" size={30} color="#F7CCC3" />
       </TouchableOpacity>
       <TextInput
         placeholder="Search..."
@@ -20,11 +21,10 @@ export const SearchBarComponent = () => {
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     height: 50,
@@ -32,11 +32,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 10,
     margin: 5,
-  },
-  icon: {
-    width: 20,
-    height: 20,
-    marginHorizontal: 5,
   },
   input: {
     flex: 1,

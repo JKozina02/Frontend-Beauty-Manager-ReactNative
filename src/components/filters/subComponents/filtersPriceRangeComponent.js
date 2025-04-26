@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
   slider: {
     marginHorizontal: 25,
   },
-  numberContainer:{
-    width:40,
+  numberContainer: {
+    width: 40,
     alignItems: "center",
-  }
+  },
 });
