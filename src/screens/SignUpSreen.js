@@ -16,9 +16,10 @@ import { CustomButton } from "../components/buttons/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { setConfirmPassword, setEmail, setName, setPassword } from "../store/slices/form.slice";
+import { resetForm, setConfirmPassword, setEmail, setName, setPassword } from "../store/slices/form.slice";
 import { schemaSignUp } from "../utils/validation/schema";
 import { useRegisterUserMutation } from "../store/services/authApi";
+import { setAuthData } from "../store/slices/auth.slice";
 
 export const SignUpScreen = () => {
   const dispatch = useDispatch();
@@ -48,11 +49,16 @@ export const SignUpScreen = () => {
         password: data.password,
         is_admin: false,
       }).unwrap();
-      console.log("Registration successful:", response);
-      dispatch(setName(data.name));
-      dispatch(setEmail(data.email));
-      dispatch(setPassword(data.password));
-      dispatch(setConfirmPassword(data.confirmPassword));
+
+      dispatch(
+        setAuthData({
+          jwtToken: response.jwtToken,
+          user: response.user,
+        })
+      );
+
+      dispatch(resetForm());
+      navigation.navigate("Home");
     } catch (error) {
       console.error("Registration failed:", error);
     }

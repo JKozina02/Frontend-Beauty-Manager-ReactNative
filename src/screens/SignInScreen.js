@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { InputComponent } from "../components/form/InputComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword } from "../store/slices/form.slice";
+import { resetForm, setEmail, setPassword } from "../store/slices/form.slice";
 import { schemaSignIn } from "../utils/validation/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
 import { CustomTextComponent } from "../components/customText/CustomTextComponent";
 import { useLoginUserMutation } from "../store/services/authApi";
+import { setAuthData } from "../store/slices/auth.slice";
 
 export const SignInScreen = () => {
   const dispatch = useDispatch();
@@ -44,9 +45,16 @@ export const SignInScreen = () => {
         email: data.email,
         password: data.password,
       }).unwrap();
-      console.log("Login successful:", response);
-      dispatch(setEmail(data.email));
-      dispatch(setPassword(data.password));
+
+      dispatch(
+        setAuthData({
+          jwtToken: response.jwtToken,
+          user: response.user,
+        })
+      );
+
+      dispatch(resetForm());
+      navigation.navigate("Home");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -105,10 +113,7 @@ export const SignInScreen = () => {
                 title="Sign In"
                 color={"#FFFAFC"}
                 backgroundColor={"#000000"}
-                onPress={() => {
-                  console.log("Sign In button pressed"); // Проверка клика
-                  handleSubmit(onSubmit)();
-                }}
+                onPress={handleSubmit(onSubmit)}
               />
             </View>
           </View>

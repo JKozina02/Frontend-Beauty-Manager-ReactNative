@@ -34,7 +34,7 @@ export const formSlice = createSlice({
   },
 });
 
-export const { setName, setEmail, setPassword, setConfirmPassword, setLoader } = formSlice.actions;
+export const { setName, setEmail, setPassword, setConfirmPassword, setLoader, resetForm } = formSlice.actions;
 
 export const selectForm = (state) => state.form;
 
