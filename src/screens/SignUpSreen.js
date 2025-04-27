@@ -17,19 +17,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setConfirmPassword, setEmail, setName, setPassword } from "../store/slices/form.slice";
-import { schema } from "../utils/validation/schema";
+import { schemaSignUp } from "../utils/validation/schema";
+import { useRegisterUserMutation } from "../store/services/authApi";
 
 export const SignUpScreen = () => {
   const dispatch = useDispatch();
   const { name, email, password, confirmPassword } = useSelector((state) => state.form);
   const navigation = useNavigation();
+  const [registerUser] = useRegisterUserMutation();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schemaSignUp),
     defaultValues: {
       name,
       email,
@@ -38,12 +40,22 @@ export const SignUpScreen = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    dispatch(setName(data.name));
-    dispatch(setEmail(data.email));
-    dispatch(setPassword(data.password));
-    dispatch(setConfirmPassword(data.confirmPassword));
-    console.log("Form submitted:", data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        is_admin: false,
+      }).unwrap();
+      console.log("Registration successful:", response);
+      dispatch(setName(data.name));
+      dispatch(setEmail(data.email));
+      dispatch(setPassword(data.password));
+      dispatch(setConfirmPassword(data.confirmPassword));
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>

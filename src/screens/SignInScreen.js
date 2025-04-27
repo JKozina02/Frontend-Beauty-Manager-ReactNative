@@ -10,7 +10,7 @@ import {
 import { InputComponent } from "../components/form/InputComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail, setPassword } from "../store/slices/form.slice";
-import { schema } from "../utils/validation/schema";
+import { schemaSignIn } from "../utils/validation/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { CustomButton } from "../components/buttons/CustomButton";
@@ -18,28 +18,38 @@ import { HeaderFormComponent } from "../components/form/HeaderFormComponent";
 import { useNavigation } from "@react-navigation/native";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
 import { CustomTextComponent } from "../components/customText/CustomTextComponent";
+import { useLoginUserMutation } from "../store/services/authApi";
 
 export const SignInScreen = () => {
   const dispatch = useDispatch();
   const { email, password } = useSelector((state) => state.form);
   const navigation = useNavigation();
+  const [loginUser] = useLoginUserMutation();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schemaSignIn),
     defaultValues: {
       email,
       password,
     },
   });
 
-  const onSubmit = (data) => {
-    dispatch(setEmail(data.email));
-    dispatch(setPassword(data.password));
-    console.log("Form submitted:", data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await loginUser({
+        email: data.email,
+        password: data.password,
+      }).unwrap();
+      console.log("Login successful:", response);
+      dispatch(setEmail(data.email));
+      dispatch(setPassword(data.password));
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
@@ -95,7 +105,10 @@ export const SignInScreen = () => {
                 title="Sign In"
                 color={"#FFFAFC"}
                 backgroundColor={"#000000"}
-                onPress={handleSubmit(onSubmit)}
+                onPress={() => {
+                  console.log("Sign In button pressed"); // Проверка клика
+                  handleSubmit(onSubmit)();
+                }}
               />
             </View>
           </View>
