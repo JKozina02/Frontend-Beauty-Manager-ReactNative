@@ -1,116 +1,216 @@
-import { Modal, View, StyleSheet, Pressable, Text } from "react-native";
+import { useRef } from "react";
+import { Modal, View, StyleSheet, Pressable, Text, Animated, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { useDispatch, useSelector } from "react-redux";
-import { closeMenu } from "../../store/slices/MenuSlice";
-import VectorImage from "../buttons/TestVectorIconsComponent";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { closeMenu, openMenu } from "../../store/slices/MenuSlice";
+import MenuItemComponent from "./MenuItemComponent";
 
-export default PopMenuComponent = ({ userName, role }) => {
+export const PopMenuComponent = ({ userName, role }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.menu.isOpen);
-  return (
-    <Modal animationType="slide" transparent={false} visible={isOpen} onRequestClose={() => dispatch(closeMenu())}>
-      <View style={styles.container}>
-        <View>
-          <View style={{ flexDirection: "row", alignItems: "space between", margin: 10, marginTop: 30 }}>
-            <Image style={styles.person} source={require("../../../assets/menu/person1.png")} />
+  const slideAnim = useRef(new Animated.Value(300)).current;
+  const topLineAnim = useRef(new Animated.Value(0)).current;
+  const bottomLineAnim = useRef(new Animated.Value(0)).current;
+  const middleLineOpacity = useRef(new Animated.Value(1)).current;
 
-            <View style={styles.data}>
-              <Text style={styles.name}>{userName}</Text>
-              <Text style={styles.role}>{role}</Text>
+  const toggleMenu = () => {
+    if (isOpen) {
+      Animated.parallel([
+        Animated.timing(slideAnim, { toValue: 300, duration: 300, useNativeDriver: true }),
+        Animated.timing(topLineAnim, { toValue: 0, duration: 300, useNativeDriver: true }),
+        Animated.timing(bottomLineAnim, { toValue: 0, duration: 300, useNativeDriver: true }),
+        Animated.timing(middleLineOpacity, { toValue: 1, duration: 300, useNativeDriver: true }),
+      ]).start(() => dispatch(closeMenu()));
+    } else {
+      dispatch(openMenu());
+      Animated.parallel([
+        Animated.timing(slideAnim, { toValue: 0, duration: 300, useNativeDriver: true }),
+        Animated.timing(topLineAnim, { toValue: 1, duration: 300, useNativeDriver: true }),
+        Animated.timing(bottomLineAnim, { toValue: 1, duration: 300, useNativeDriver: true }),
+        Animated.timing(middleLineOpacity, { toValue: 0, duration: 300, useNativeDriver: true }),
+      ]).start();
+    }
+  };
+
+  return (
+    <>
+      <Modal transparent visible={isOpen} animationType="none">
+        <Pressable style={styles.modalOverlay} onPress={toggleMenu}>
+          <Animated.View style={[styles.container, { transform: [{ translateX: slideAnim }] }]}>
+            <View style={styles.header}>
+              <Image style={styles.person} source={require("../../../assets/menu/person1.png")} />
+              <View style={styles.data}>
+                <Text style={styles.name}>{userName}</Text>
+                <Text style={styles.role}>{role}</Text>
+              </View>
+            </View>
+            <View style={styles.menuItems}>
+              <MenuItemComponent
+                onPress={() => console.log("Profile")}
+                source="account-outline"
+                imageStyle={styles.imgOptionStyle}
+                option="Profile"
+                iconLibrary="MaterialCommunityIcons"
+                sizer={30}
+                colour="#000000"
+              />
+              <MenuItemComponent
+                onPress={() => console.log("Privacy policy")}
+                source="exclamationcircleo"
+                imageStyle={styles.imgOptionStyle}
+                option="Privacy policy"
+                iconLibrary="AntDesign"
+                sizer={28}
+                colour="#000000"
+              />
+              <MenuItemComponent
+                onPress={() => console.log("My visits")}
+                source="location-outline"
+                imageStyle={styles.imgOptionStyle}
+                option="My visits"
+                iconLibrary="Ionicons"
+                sizer={30}
+                colour="#000000"
+              />
+              <MenuItemComponent
+                onPress={() => console.log("Favorites")}
+                source="hearto"
+                imageStyle={styles.imgOptionStyle}
+                option="Favorites"
+                iconLibrary="AntDesign"
+                sizer={30}
+                colour="#000000"
+              />
+              <MenuItemComponent
+                onPress={() => console.log("About us")}
+                source="account-group-outline"
+                imageStyle={styles.imgOptionStyle}
+                option="About us"
+                iconLibrary="MaterialCommunityIcons"
+                sizer={30}
+                colour="#000000"
+              />
+              <MenuItemComponent
+                onPress={() => console.log("Settings")}
+                source="settings-outline"
+                imageStyle={styles.imgOptionStyle}
+                option="Settings"
+                iconLibrary="Ionicons"
+                sizer={30}
+                colour="#000000"
+              />
             </View>
 
-            <Pressable onPress={() => dispatch(closeMenu())}>
-              <AntDesign name="close" size={40} color="black" style={{ margin: 10 }} />
-            </Pressable>
-          </View>
+            <View style={styles.outLog}>
+              <MenuItemComponent
+                onPress={() => console.log("Log out")}
+                source="log-out-outline"
+                imageStyle={styles.imgOptionStyle}
+                option="Log out"
+                iconLibrary="Ionicons"
+                sizer={35}
+                colour="#E08573"
+              />
+            </View>
+          </Animated.View>
 
-          <View style={{ flexDirection: "column", alignItems: "space between", margin: 10, width: "100%" }}>
-            <VectorImage
-              onPress={() => console.log("Profile")}
-              source="account-outline"
-              imageStyle={styles.imgOptionStyle}
-              option="Profile"
-              iconLibrary="MaterialCommunityIcons"
-              sizer={38}
-              colour="#000000"
-            />
-            <VectorImage
-              onPress={() => console.log("Privacy policy")}
-              source="exclamationcircleo"
-              imageStyle={styles.imgOptionStyle}
-              option="Privacy policy"
-              iconLibrary="AntDesign"
-              sizer={32}
-              colour="#000000"
-            />
-            <VectorImage
-              onPress={() => console.log("My visits")}
-              source="location-outline"
-              imageStyle={styles.imgOptionStyle}
-              option="My visits"
-              iconLibrary="Ionicons"
-              sizer={36}
-              colour="#000000"
-            />
-            <VectorImage
-              onPress={() => console.log("Favorites")}
-              source="hearto"
-              imageStyle={styles.imgOptionStyle}
-              option="Favorites"
-              iconLibrary="AntDesign"
-              sizer={32}
-              colour="#000000"
-            />
-            <VectorImage
-              onPress={() => console.log("About us")}
-              source="account-group-outline"
-              imageStyle={styles.imgOptionStyle}
-              option="About us"
-              iconLibrary="MaterialCommunityIcons"
-              sizer={36}
-              colour="#000000"
-            />
-            <VectorImage
-              onPress={() => console.log("Settings")}
-              source="settings-outline"
-              imageStyle={styles.imgOptionStyle}
-              option="Settings"
-              iconLibrary="Ionicons"
-              sizer={32}
-              colour={"#000000"}
-            />
+          <TouchableOpacity style={styles.menuButton} onPress={toggleMenu}>
+            <View style={styles.burgerContainer}>
+              <Animated.View
+                style={[
+                  styles.burgerLine,
+                  styles.topLine,
+                  {
+                    top: 100,
+                  },
+                  {
+                    transform: [
+                      { rotateZ: topLineAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "45deg"] }) },
+                      { translateY: topLineAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 8] }) },
+                    ],
+                  },
+                ]}
+              />
+              <Animated.View style={[styles.burgerLine, styles.middleLine, { opacity: middleLineOpacity }]} />
+              <Animated.View
+                style={[
+                  styles.burgerLine,
+                  styles.bottomLine,
+                  {
+                    top: 84,
+                  },
+                  {
+                    transform: [
+                      {
+                        rotateZ: bottomLineAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "-45deg"] }),
+                      },
+                      { translateY: bottomLineAnim.interpolate({ inputRange: [0, 1], outputRange: [0, -8] }) },
+                    ],
+                  },
+                ]}
+              />
+            </View>
+          </TouchableOpacity>
+        </Pressable>
+      </Modal>
+      {!isOpen && (
+        <TouchableOpacity style={styles.menuButton} onPress={toggleMenu}>
+          <View style={styles.burgerContainer}>
+            <View style={[styles.burgerLine, styles.topLine]} />
+            <View style={[styles.burgerLine, styles.middleLine]} />
+            <View style={[styles.burgerLine, styles.bottomLine]} />
           </View>
-        </View>
-        <View style={styles.outLog}>
-          <VectorImage
-            onPress={() => console.log("Log out")}
-            source="log-out-outline"
-            imageStyle={styles.imgOptionStyle}
-            option="Log out"
-            iconLibrary="Ionicons"
-            sizer={35}
-            colour="#F7CCC3"
-          />
-        </View>
-      </View>
-    </Modal>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    flexDirection: "column",
-    justifyContent: "space-between",
+  menuButton: {
+    position: "absolute",
+    top: -15,
+    right: 20,
+    zIndex: 1002,
+    elevation: 3,
   },
-  iks: {
+  burgerContainer: {
+    zIndex: 1002,
     width: 32,
-    height: 24,
-    resizeMode: "contain",
-    paddingTop: "60",
-    paddingRight: "10",
+    height: 32,
+    alignItems: "flex-end",
+  },
+  burgerLine: {
+    height: 2,
+    backgroundColor: "#000",
+    borderRadius: 2,
+  },
+  topLine: {
+    width: 32,
+    marginBottom: 12,
+  },
+  middleLine: {
+    width: 23,
+    marginBottom: 12,
+  },
+  bottomLine: {
+    width: 32,
+  },
+  modalOverlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  container: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#FFFAFC",
+    position: "absolute",
+    paddingTop: 50,
+    paddingHorizontal: 20,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 30,
   },
   person: {
     width: 75,
@@ -120,30 +220,34 @@ const styles = StyleSheet.create({
   },
   data: {
     flex: 1,
-    marginLeft: 10,
-    flexDirection: "column",
-    marginTop: 15,
+    marginLeft: 15,
   },
   name: {
     fontFamily: "KohSantepheap-Bold",
-    fontSize: 26,
+    fontSize: 25,
     color: "#000",
-    lineHeight: 30,
   },
   role: {
     fontFamily: "KohSantepheap-Regular",
-    fontSize: 14,
-    color: "#000",
-    lineHeight: 15,
+    fontSize: 13,
+    color: "#7B7B7B",
+  },
+  closeIcon: {
+    margin: 10,
+  },
+  menuItems: {
+    flexDirection: "column",
+    width: "100%",
   },
   imgOptionStyle: {
     width: 40,
     height: 35,
-    margin: 10,
+    marginVertical: 10,
     contentFit: "contain",
   },
   outLog: {
-    flexDirection: "row",
-    margin: 10,
+    marginVertical: 20,
   },
 });
+
+export default PopMenuComponent;

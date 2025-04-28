@@ -3,7 +3,15 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function VectorImage({ onPress, source, sizer, colour, imageStyle, option, iconLibrary = "Ionicons" }) {
+export default function MenuItemComponent({
+  onPress,
+  source,
+  sizer,
+  colour,
+  imageStyle,
+  option,
+  iconLibrary = "Ionicons",
+}) {
   let IconComponent;
 
   if (iconLibrary === "Ionicons") {
@@ -18,10 +26,8 @@ export default function VectorImage({ onPress, source, sizer, colour, imageStyle
 
   return (
     <Pressable onPress={onPress} style={({ pressed }) => (pressed ? styles.pressed : styles.notPressed)}>
-      <View style={{ flexDirection: "row", margin: 10 }}>
-        <View style={styles.imageContainer}>
-          <IconComponent style={imageStyle} name={source} size={sizer} color={colour} />
-        </View>
+      <View style={styles.containerItem}>
+        <IconComponent style={imageStyle} name={source} size={sizer} color={colour} />
         <Text style={styles.optionText}>{option}</Text>
       </View>
     </Pressable>
@@ -29,31 +35,21 @@ export default function VectorImage({ onPress, source, sizer, colour, imageStyle
 }
 
 const styles = StyleSheet.create({
+  containerItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    height: 77,
+  },
   pressed: {
-    opacity: 0.6,
+    backgroundColor: "#FDECEA",
   },
   notPressed: {
     opacity: 1,
-  },
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#ffffff",
-    width: "100%",
-    height: 70,
-  },
-  imageContainer: {
-    width: 40,
-    height: 40,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-    contentFit: "contain",
   },
   optionText: {
     fontFamily: "KohSantepheap-Regular",
     fontSize: 24,
     color: "#000",
-    marginLeft: 10,
   },
 });
