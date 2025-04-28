@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import FractionalStar from '../ui//FractionalStar'; // Import your FractionalStar component
 
 const ProductComponent = ({ id, image, name, address, rating }) => {
   const navigation = useNavigation();
@@ -27,26 +28,30 @@ const ProductComponent = ({ id, image, name, address, rating }) => {
   );
 };
 
+
 const renderStars = (rating) => {
   const stars = [];
   const fullStars = Math.floor(rating);
-  const halfStar = rating - fullStars >= 0.25 && rating - fullStars <= 0.75;
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+  const decimal = rating - fullStars;
 
   for (let i = 0; i < fullStars; i++) {
     stars.push(<Icon key={`full-${i}`} name="star" size={20} color="#FFD700" />);
   }
 
-  if (halfStar) {
-    stars.push(<Icon key="half" name="star-half" size={20} color="#FFD700" />);
+  if (decimal > 0) {
+    stars.push(<FractionalStar key="fractional" fill={decimal} />);
   }
 
-  for (let i = 0; i < emptyStars; i++) {
+  const totalStars = fullStars + (decimal > 0 ? 1 : 0);
+
+  for (let i = totalStars; i < 5; i++) {
     stars.push(<Icon key={`empty-${i}`} name="star-border" size={20} color="#FFD700" />);
   }
 
   return stars;
 };
+
+  
 
 const styles = StyleSheet.create({
   card: {
