@@ -13,7 +13,13 @@ const CategoryScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ProductComponent id={dummyData.id} image={dummyData.image} name={dummyData.name} address={dummyData.address} />
+      <ProductComponent
+        id={dummyData.id}
+        image={dummyData.image}
+        name={dummyData.name}
+        address={dummyData.address}
+        rating={dummyData.rating}
+      />
     </ScrollView>
   );
 };
