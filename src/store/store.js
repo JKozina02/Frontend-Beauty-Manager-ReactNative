@@ -1,9 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authApi } from "./services/authApi";
 import menuReducer from "./slices/MenuSlice";
+import searchReducer from "./slices/searchSlice";
+import filterReducer from "./slices/filterSlice";
 
 export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
+  search: searchReducer,
+  filter: filterReducer,
   menu: menuReducer,
 });
 
