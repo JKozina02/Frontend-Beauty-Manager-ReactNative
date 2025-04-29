@@ -1,5 +1,8 @@
-import { Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export const SignInScreen = () => {
-  return <Text>Sign up Screen</Text>;
+ return <Text>Sign up Screen</Text>;
 };
+const styles = StyleSheet.create({
+
+});
