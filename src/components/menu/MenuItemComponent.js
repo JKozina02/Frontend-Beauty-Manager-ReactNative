@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   containerItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 20,
     height: 77,
   },
   pressed: {

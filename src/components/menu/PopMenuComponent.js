@@ -205,12 +205,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFAFC",
     position: "absolute",
     paddingTop: 50,
-    paddingHorizontal: 20,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 30,
+    paddingHorizontal: 20,
   },
   person: {
     width: 75,
@@ -232,9 +232,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#7B7B7B",
   },
-  closeIcon: {
-    margin: 10,
-  },
   menuItems: {
     flexDirection: "column",
     width: "100%",
@@ -242,7 +239,7 @@ const styles = StyleSheet.create({
   imgOptionStyle: {
     width: 40,
     height: 35,
-    marginVertical: 10,
+    marginLeft: 20,
     contentFit: "contain",
   },
   outLog: {
