@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-
 echo "🚀 Running Git hooks..."
 
 npm run lint || {
