@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "real-time-chat",
-    "slug": "real-time-chat",
+    "name": "beatuty-manager",
+    "slug": "beatuy-manager",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFAFC" 
     },
     "ios": {
       "supportsTablet": true

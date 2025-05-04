@@ -1,11 +1,15 @@
 import { StyleSheet, View, Text } from "react-native";
+import { PopMenuComponent } from "./PopMenuComponent";
 
 export const NameMenuComponent = ({ userName }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nameContainer}>
-        <Text style={styles.Bold}>Welcome,</Text>
-        <Text style={styles.Name}>{userName}</Text>
+        <Text style={styles.bold}>Welcome,</Text>
+        <Text style={styles.name}>{userName}</Text>
+      </View>
+      <View style={styles.sideButton}>
+        <PopMenuComponent userName="Tatiana" role="Beauty Artist" />
       </View>
     </View>
   );
@@ -21,29 +25,24 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingTop: 70,
   },
   nameContainer: {
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  Name: {
+  name: {
     fontFamily: "KohSantepheap-Regular",
-    fontSize: 22,
+    fontSize: 25,
     color: "#000",
-    lineHeight: 26,
   },
-  Bold: {
+  bold: {
     fontFamily: "KohSantepheap-Bold",
-    fontSize: 26,
+    fontSize: 30,
     color: "#000",
-    lineHeight: 30,
   },
-  Menu: {
-    width: 32,
-    height: 24,
-    resizeMode: "contain",
-    paddingTop: "60",
-    paddingRight: "20",
+  sideButton: {
+    top: 30,
+    right: -20,
   },
 });

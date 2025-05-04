@@ -54,7 +54,7 @@ export const SignInScreen = () => {
       );
 
       dispatch(resetForm());
-      navigation.navigate("Home");
+      navigation.navigate("MainScreen");
     } catch (error) {
       console.error("Login failed:", error);
     }

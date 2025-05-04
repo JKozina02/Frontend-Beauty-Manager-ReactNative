@@ -58,7 +58,7 @@ export const SignUpScreen = () => {
       );
 
       dispatch(resetForm());
-      navigation.navigate("Home");
+      navigation.navigate("MainScreen");
     } catch (error) {
       console.error("Registration failed:", error);
     }
