@@ -32,12 +32,14 @@ export const HomeScreen = () => {
             title="Sign In"
             color={"#000000"}
             backgroundColor={"#FFFAFC"}
+            style={styles.buttonStyle}
           />
           <CustomButton
             onPress={() => navigation.navigate("SignUp")}
             title="Sign Up"
             color={"#FFFAFC"}
             backgroundColor={"#000000"}
+            style={styles.buttonStyle}
           />
         </View>
       </View>
@@ -46,6 +48,9 @@ export const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  buttonStyle: {
+    flex: 1,
+  },
   wrapperTitle: {
     gap: 25,
   },

@@ -3,16 +3,30 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpSreen";
 import { ServiceDetailsScreen } from "../screens/ServiceDetailsScreen";
+import { NotFoundScreen } from "../screens/NotFoundScreen";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../store/slices/auth.slice";
+import { MainScreen } from "../screens/MainScreen";
+
 
 const Stack = createNativeStackNavigator();
 
+const AuthStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
+  </Stack.Navigator>
+);
+
+const HomeStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }} />
+  </Stack.Navigator>
+);
+
 export const AppNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ServiceDetailsScreen" component={ServiceDetailsScreen} options={{ headerShown: false }} />
-    </Stack.Navigator>
-  );
+  const { jwtToken } = useSelector(selectAuth);
+  
+  return jwtToken ? <HomeStack /> : <AuthStack />;
 };
