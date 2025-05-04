@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFAFC',
     margin: 8,
     overflow: 'hidden',
+    borderRadius:15,
   },
   image: {
     width: 188,
