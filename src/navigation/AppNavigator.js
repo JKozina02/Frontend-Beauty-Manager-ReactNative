@@ -2,10 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/HomeScreen";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpSreen";
+import { ServiceDetailsScreen } from "../screens/ServiceDetailsScreen";
 import { NotFoundScreen } from "../screens/NotFoundScreen";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../store/slices/auth.slice";
 import { MainScreen } from "../screens/MainScreen";
+
 
 const Stack = createNativeStackNavigator();
 
