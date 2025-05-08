@@ -2,11 +2,11 @@ import React from "react";
 import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const CategoryCard = ({ category }) => {
+const CategoryComponent = ({ category }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("CategoryScreen", { categoryId: category.id_category });
+    navigation.navigate("CategoryScreen", { categoryId: category.id_category, categoryName: category.name });
   };
 
   return (
@@ -18,7 +18,7 @@ const CategoryCard = ({ category }) => {
   );
 };
 
-export default CategoryCard;
+export default CategoryComponent;
 
 const styles = StyleSheet.create({
   card: {

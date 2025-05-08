@@ -6,6 +6,7 @@ import { NotFoundScreen } from "../screens/NotFoundScreen";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../store/slices/auth.slice";
 import { MainScreen } from "../screens/MainScreen";
+import CategoryScreen from "../screens/CategoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }} />
     <Stack.Screen name="*" component={NotFoundScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="CategoryScreen" component={CategoryScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 
