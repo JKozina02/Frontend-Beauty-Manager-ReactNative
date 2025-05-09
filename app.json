@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "beatuty-manager",
-    "slug": "beatuy-manager",
+    "name": "beauty-manager",
+    "slug": "beauty-manager",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FFFAFC" 
+      "backgroundColor": "#FFFAFC"
     },
     "ios": {
       "supportsTablet": true

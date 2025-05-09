@@ -9,7 +9,4 @@ export const ServiceDetailsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
- 
-  
-});
+const styles = StyleSheet.create({});

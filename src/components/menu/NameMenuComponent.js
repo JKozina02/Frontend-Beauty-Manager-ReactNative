@@ -7,13 +7,13 @@ export const NameMenuComponent = ({ userName }) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapperHeader}>
-      <View style={styles.nameContainer}>
-        <Text style={styles.bold}>Welcome,</Text>
-        <Text style={styles.name}>{userName}</Text>
-      </View>
-      <View style={styles.sideButton}>
-        <PopMenuComponent userName="Tatiana" role="Beauty Artist" />
-      </View>
+        <View style={styles.nameContainer}>
+          <Text style={styles.bold}>Welcome,</Text>
+          <Text style={styles.name}>{userName}</Text>
+        </View>
+        <View style={styles.sideButton}>
+          <PopMenuComponent userName="Tatiana" role="Beauty Artist" />
+        </View>
       </View>
       <View style={styles.wrapperFilters}>
         <SearchBarComponent />
@@ -24,7 +24,7 @@ export const NameMenuComponent = ({ userName }) => {
 };
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: "#F7CCC3",
     width: "100%",
     borderBottomRightRadius: 20,
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 70,
     paddingBottom: 22,
-
   },
   wrapperHeader: {
     flexDirection: "row",
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
   wrapperFilters: {
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: 5,  
+    gap: 5,
     marginTop: 20,
   },
   nameContainer: {
