@@ -13,10 +13,12 @@ export const SettingsScreen = ({ navigation }) => {
       </View>
       <Pressable style={styles.selectionBox}>
         <Text style={styles.selectionText}>Wroclaw</Text>
+        <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
       </Pressable>
 
       <Pressable style={styles.selectionBox}>
         <Text style={styles.selectionText}>English</Text>
+        <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
       </Pressable>
 
       <Pressable style={styles.saveButton}>
@@ -52,6 +54,9 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 15,
     marginBottom: 26,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   selectionText: {
     fontSize: 18,
@@ -67,5 +72,9 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: "#FFFFFF",
     fontSize: 22,
+  },
+  arrowIcon: {
+    width: 18, // Dopasuj rozmiar w zależności od Twojego obrazu
+    height: 18,
   },
 });
