@@ -5,14 +5,14 @@ export const authSlice = createSlice({
   initialState: {
     jwtToken: null,
     user: null,
-    name: null, 
+    name: null,
     expiresAt: null,
   },
   reducers: {
     setAuthData: (state, action) => {
       state.jwtToken = action.payload.jwtToken;
       state.user = action.payload.user;
-      state.name = action.payload.user.name; 
+      state.name = action.payload.user.name;
       state.expiresAt = action.payload.expiresAt;
     },
     clearAuthData: (state) => {
