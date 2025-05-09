@@ -5,7 +5,7 @@ import passwordReducer from "./slices/password.slice";
 import authReducer from "./slices/auth.slice";
 import menuReducer from "./slices/MenuSlice";
 import searchReducer from "./slices/searchSlice";
-import filterReducer from "./slices/filterSlice";
+import filterReducer from "./slices/filter.slice";
 
 export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,

@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPriceRange } from "../../../store/slices/filterSlice";
+import { setPriceRange } from "../../../store/slices/filter.slice";
 import Slider from "@react-native-community/slider";
 
 export const FiltersPriceRangeComponent = () => {

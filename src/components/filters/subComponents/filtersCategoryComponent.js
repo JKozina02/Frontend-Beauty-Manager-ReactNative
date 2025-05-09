@@ -1,6 +1,6 @@
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../../../store/slices/filterSlice";
+import { setCategory } from "../../../store/slices/filter.slice";
 
 export const FiltersCategoryComponent = () => {
   const dispatch = useDispatch();

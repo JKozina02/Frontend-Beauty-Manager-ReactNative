@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { hideModal, resetFilters } from "../../../store/slices/filterSlice";
+import { hideModal, resetFilters } from "../../../store/slices/filter.slice";
 import { useDispatch } from "react-redux";
 import { HeadingComponent } from "../../heading/HeadingComponent";
 

@@ -1,5 +1,6 @@
 import { NameMenuComponent } from "../components/menu/NameMenuComponent";
 import { StyleSheet, View } from "react-native";
+import CategoriesList from "../components/ui/CategoriesList";
 
 export const MainScreen = () => {
   return (
@@ -7,6 +8,7 @@ export const MainScreen = () => {
       <View style={styles.wrapperHeader}>
         <NameMenuComponent userName="Tatiana" />
       </View>
+      <CategoriesList />
     </View>
   );
 };
