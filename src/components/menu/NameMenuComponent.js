@@ -1,9 +1,12 @@
 import { StyleSheet, View, Text } from "react-native";
 import { PopMenuComponent } from "./PopMenuComponent";
+import { SearchBarComponent } from "../searchBar/SearchBarComponent.js";
+import { FiltersButtonComponent } from "../filters/subComponents/FiltersButtonComponent.js";
 
 export const NameMenuComponent = ({ userName }) => {
   return (
     <View style={styles.container}>
+      <View style={styles.wrapperHeader}>
       <View style={styles.nameContainer}>
         <Text style={styles.bold}>Welcome,</Text>
         <Text style={styles.name}>{userName}</Text>
@@ -11,21 +14,35 @@ export const NameMenuComponent = ({ userName }) => {
       <View style={styles.sideButton}>
         <PopMenuComponent userName="Tatiana" role="Beauty Artist" />
       </View>
+      </View>
+      <View style={styles.wrapperFilters}>
+        <SearchBarComponent />
+        <FiltersButtonComponent />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  container:{
     backgroundColor: "#F7CCC3",
-    height: 200,
     width: "100%",
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     paddingHorizontal: 20,
     paddingTop: 70,
+    paddingBottom: 22,
+
+  },
+  wrapperHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  wrapperFilters: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 5,  
+    marginTop: 20,
   },
   nameContainer: {
     flexDirection: "column",

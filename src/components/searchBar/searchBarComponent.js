@@ -25,13 +25,13 @@ export const SearchBarComponent = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     height: 50,
     backgroundColor: "#ffffff",
     paddingHorizontal: 10,
     borderRadius: 10,
-    margin: 5,
   },
   input: {
     flex: 1,
