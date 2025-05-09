@@ -52,7 +52,6 @@ const renderStars = (rating) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFAFC",
     margin: 8,
     overflow: "hidden",
     borderRadius: 15,

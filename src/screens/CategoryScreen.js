@@ -1,43 +1,69 @@
-import React from "react";
-import { StyleSheet, ScrollView, Text } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
 import ProductComponent from "../components/ui/ProductComponent";
 import { useRoute } from "@react-navigation/native";
+import { View } from "react-native";
+import { TopMenuComponent } from "../components/menu/TopMenuComponent";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../store/slices/auth.slice";
+import { useGetServicesQuery } from "../store/services/productsApi";
+import { HeadingComponent } from "../components/heading/HeadingComponent";
 
 const CategoryScreen = () => {
+  const { name } = useSelector(selectAuth);
+
   const route = useRoute();
   const { categoryId, categoryName } = route.params;
 
-  const dummyData = {
-    id: categoryId,
-    image:
-      "https://images.kikocosmetics.com/lf2wbbijeo86/1Vx6ers0mjdfH9ESN9PhPl/28098bd3f6d1b7b94a6f69d19a96e692/Info_BeautyServices_NEW-Landing-Header_MakeupAndGo.jpg?w=1920&fm=webp",
-    name: "Salon Artist",
-    address: "Tęczowa, Wrocław",
-    rating: 4.6,
+  const { data, isLoading, error } = useGetServicesQuery();
+
+  if (isLoading) return <ActivityIndicator size="large" color="#F7CCC3" />;
+  if (error) return <Text>Error: {error.message}</Text>;
+
+  const salons = data?.salonsList || [];
+
+  const categoryMap = {
+    1: "eyelashes",
+    2: "nails",
+    3: "eyebrows",
+    4: "makeup",
   };
 
+  const mappedCategory = categoryMap[categoryId?.trim().toLowerCase()] || "";
+
+  const filteredSalons = salons.filter((salon) =>
+    salon.categories.some((category) => category.trim().toLowerCase() === mappedCategory)
+  );
+
+  const salonCount = filteredSalons.length;
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}> {categoryName}</Text>
-      <ProductComponent
-        id={dummyData.id}
-        image={dummyData.image}
-        name={dummyData.name}
-        address={dummyData.address}
-        rating={dummyData.rating}
-      />
-    </ScrollView>
+    <View contentContainerStyle={styles.container}>
+      <TopMenuComponent title={categoryName} name={name} />
+      <HeadingComponent level={3} color="#000000" children={`${categoryName} - ${salonCount}`} />
+      {filteredSalons.length > 0 ? (
+        <FlatList
+          data={filteredSalons}
+          keyExtractor={(item) => item.salonId}
+          renderItem={({ item }) => (
+            <ProductComponent
+              id={item.salonId}
+              image={item.image}
+              name={item.title}
+              address={item.description}
+              rating={item.rating || 0}
+            />
+          )}
+        />
+      ) : (
+        <Text style={styles.emptyText}>No salons found for this category.</Text>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 90,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
   },
 });
 
