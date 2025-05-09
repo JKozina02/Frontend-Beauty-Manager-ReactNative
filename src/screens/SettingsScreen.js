@@ -1,29 +1,72 @@
-import React from "react";
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Pressable, StyleSheet, Modal, TouchableOpacity, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 
-export const SettingsScreen = ({ navigation }) => {
+export const SettingsScreen = () => {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  const handleCityPress = () => {
+    navigation.navigate("CitySelectionScreen");
+  };
+
+  const handleLanguagePress = (lang) => {
+    setSelectedLanguage(lang);
+    i18n.changeLanguage(lang);
+    setLanguageModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()}>
-          <Image source={require("../../assets/arrow.png")} style={styles.backbutton} />
+          <Image source={require("../../assets/arrow.png")} style={styles.backArrow} />
         </Pressable>
-        <Text style={styles.headerText}>Settings</Text>
+        <Text style={styles.headerText}>{t("settings")}</Text>
         <View style={{ width: 24 }} />
       </View>
-      <Pressable style={styles.selectionBox}>
-        <Text style={styles.selectionText}>Wroclaw</Text>
+
+      <Pressable style={styles.selectionBox} onPress={handleCityPress}>
+        <Text style={styles.selectionText}>{t("city")}</Text>
         <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
       </Pressable>
 
-      <Pressable style={styles.selectionBox}>
-        <Text style={styles.selectionText}>English</Text>
+      <Pressable style={styles.selectionBox} onPress={() => setLanguageModalVisible(true)}>
+        <Text style={styles.selectionText}>
+          {selectedLanguage === "en" ? "English" : selectedLanguage === "pl" ? "Polski" : "Русский"}
+        </Text>
         <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
       </Pressable>
 
       <Pressable style={styles.saveButton}>
-        <Text style={styles.saveButtonText}>Save</Text>
+        <Text style={styles.saveButtonText}>{t("save")}</Text>
       </Pressable>
+
+      <Modal visible={languageModalVisible} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {["en", "pl", "ru"].map((lang) => (
+              <TouchableOpacity
+                key={lang}
+                onPress={() => handleLanguagePress(lang)}
+                style={[styles.modalItem, lang === selectedLanguage ? styles.enabledLang : styles.disabledLang]}
+              >
+                <Text
+                  style={{
+                    color: lang === selectedLanguage ? "black" : "gray",
+                  }}
+                >
+                  {lang === "en" ? "English" : lang === "pl" ? "Polski" : "Русский"}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -74,7 +117,28 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   arrowIcon: {
-    width: 18, // Dopasuj rozmiar w zależności od Twojego obrazu
+    width: 18,
     height: 18,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    width: "80%",
+  },
+  modalItem: {
+    paddingVertical: 10,
+  },
+  enabledLang: {
+    opacity: 1,
+  },
+  disabledLang: {
+    opacity: 0.5,
   },
 });
