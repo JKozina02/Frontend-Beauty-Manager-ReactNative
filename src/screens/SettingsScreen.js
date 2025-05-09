@@ -11,6 +11,10 @@ export const SettingsScreen = ({ navigation }) => {
       <Pressable style={styles.selectionBox}>
         <Text style={styles.selectionText}>English</Text>
       </Pressable>
+
+      <Pressable style={styles.saveButton}>
+        <Text style={styles.saveButtonText}>Save</Text>
+      </Pressable>
     </View>
   );
 };
@@ -30,5 +34,16 @@ const styles = StyleSheet.create({
   },
   selectionText: {
     fontSize: 18,
+  },
+  saveButton: {
+    backgroundColor: "black",
+    padding: 16,
+    borderRadius: 15,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  saveButtonText: {
+    color: "#FFFFFF",
+    fontSize: 22,
   },
 });
