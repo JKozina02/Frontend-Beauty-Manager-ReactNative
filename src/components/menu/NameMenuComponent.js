@@ -12,7 +12,7 @@ export const NameMenuComponent = ({ userName }) => {
           <Text style={styles.name}>{userName}</Text>
         </View>
         <View style={styles.sideButton}>
-          <PopMenuComponent userName="Tatiana" role="Beauty Artist" />
+          <PopMenuComponent userName={userName} role="Beauty Artist" />
         </View>
       </View>
       <View style={styles.wrapperFilters}>

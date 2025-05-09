@@ -50,6 +50,7 @@ export const SignInScreen = () => {
         setAuthData({
           jwtToken: response.jwtToken,
           user: response.user,
+          name: response.user.name,
         })
       );
 
