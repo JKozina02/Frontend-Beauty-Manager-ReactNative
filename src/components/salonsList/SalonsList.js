@@ -25,7 +25,7 @@ export const SalonsList = ({ data, title, onPress, tab }) => {
             image={item.image}
             name={item.title}
             address={item.description}
-            rating={item.rating || 0}
+            rating={item.rating || 3.5}
           />
         )}
         contentContainerStyle={styles.listContent}
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     marginTop: 20,
+    gap: 20,
   },
   emptyText: {
     textAlign: "center",
