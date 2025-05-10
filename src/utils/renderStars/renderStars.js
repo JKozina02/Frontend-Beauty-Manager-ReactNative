@@ -1,4 +1,4 @@
-import FractionalStar from "../../components/ui/FractionalStar"; 
+import FractionalStar from "../../components/ui/FractionalStar";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 export const renderStars = (rating) => {

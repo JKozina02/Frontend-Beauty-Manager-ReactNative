@@ -26,8 +26,6 @@ const ProductComponent = ({ id, image, name, address, rating }) => {
   );
 };
 
-
-
 const styles = StyleSheet.create({
   card: {
     overflow: "hidden",

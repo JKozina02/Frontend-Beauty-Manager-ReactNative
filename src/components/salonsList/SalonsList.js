@@ -11,7 +11,7 @@ export const SalonsList = ({ data, title, onPress, tab }) => {
     <View style={styles.container}>
       <View style={styles.wrapperTitle}>
         {title && <HeadingComponent children={title} level={3} color="#000000" />}
-        <TouchableOpacity key={tab} style={[styles.tab]} onPress={onPress}>
+        <TouchableOpacity style={[styles.tab]} onPress={onPress}>
           <Text style={[styles.tabText]}>{tab}</Text>
         </TouchableOpacity>
       </View>
@@ -37,7 +37,7 @@ export const SalonsList = ({ data, title, onPress, tab }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 30,
+    marginVertical: 20,
     paddingHorizontal: 20,
   },
   listContent: {

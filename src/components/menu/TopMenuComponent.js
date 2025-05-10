@@ -11,12 +11,10 @@ export const TopMenuComponent = ({ title, name }) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapperHeader}>
-        <Pressable onPress={navigation.navigate("MainScreen")} style={styles.sideButton}>
+        <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
           <AntDesign name="swapleft" size={50} color="black" />
         </Pressable>
-
         <Text style={styles.title}>{title}</Text>
-
         <View style={styles.sideButton}>
           <PopMenuComponent userName={name} role="Beauty Client" />
         </View>
@@ -51,13 +49,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   sideButton: {
-    width: 50,
-    alignItems: "center",
+    right: -20,
   },
   title: {
     fontFamily: "KohSantepheap-Bold",
     fontSize: 22,
     textAlign: "center",
+    marginRight: 35,
     flex: 1,
   },
 });

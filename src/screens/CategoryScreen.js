@@ -40,39 +40,39 @@ const CategoryScreen = () => {
     <View>
       <TopMenuComponent title={categoryName} name={name} />
       <ScrollView contentContainerStyle={styles.scrollView}>
-      <HeadingComponent level={3} color="#000000" children={`${categoryName} - ${salonCount}`} />
-      {filteredSalons.length > 0 ? (
-        <FlatList
-          data={filteredSalons}
-          ontentContainerStyle={styles.listContent}
-          keyExtractor={(item) => item.salonId}
-          renderItem={({ item }) => (
-            <ProductComponent
-              id={item.salonId}
-              image={item.image}
-              name={item.title}
-              address={item.description}
-              rating={item.rating || 3.5}
-            />
-          )}
-        />
-      ) : (
-        <Text style={styles.emptyText}>No salons found for this category.</Text>
-      )}
+        <HeadingComponent level={3} color="#000000" children={`${categoryName} - ${salonCount}`} />
+        {filteredSalons.length > 0 ? (
+          <FlatList
+            data={filteredSalons}
+            ontentContainerStyle={styles.listContent}
+            keyExtractor={(item) => item.salonId}
+            renderItem={({ item }) => (
+              <ProductComponent
+                id={item.salonId}
+                image={item.image}
+                name={item.title}
+                address={item.description}
+                rating={item.rating || 3.5}
+              />
+            )}
+          />
+        ) : (
+          <Text style={styles.emptyText}>No salons found for this category.</Text>
+        )}
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView:{
+  scrollView: {
     marginTop: 20,
     marginHorizontal: 20,
     gap: 20,
   },
-  listContent:{
+  listContent: {
     gap: 20,
-  }
+  },
 });
 
 export default CategoryScreen;
