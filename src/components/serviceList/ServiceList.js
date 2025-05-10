@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { ServiceComponent } from "../service/ServiceComponent";
 
 export const ServiceList = () => {
