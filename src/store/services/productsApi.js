@@ -9,7 +9,14 @@ export const productsApi = createApi({
     getServices: builder.query({
       query: () => "/salons",
     }),
+    addFavorite: builder.mutation({
+      query: ({ userId, salonId }) => ({
+        url: "/favorites",
+        method: "POST",
+        body: { userId, salonId },
+      }),
+    }),
   }),
 });
 
-export const { useGetServicesQuery } = productsApi;
+export const { useGetServicesQuery, useAddFavoriteMutation } = productsApi;

@@ -4,6 +4,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     jwtToken: null,
+
     user: null,
     name: null,
     expiresAt: null,
@@ -27,5 +28,5 @@ export const authSlice = createSlice({
 export const { setAuthData, clearAuthData } = authSlice.actions;
 
 export const selectAuth = (state) => state.auth;
-
+export const selectUserId = (state) => state.auth.user?.id;
 export default authSlice.reducer;

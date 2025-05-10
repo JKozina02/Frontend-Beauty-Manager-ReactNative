@@ -5,12 +5,26 @@ import { useState } from "react";
 import { ServiceList } from "../components/serviceList/ServiceList";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useAddFavoriteMutation } from "../store/services/productsApi";
+import { useSelector } from "react-redux";
+import { selectUserId } from "../store/slices/auth.slice";
 
 export const DetailProductScreen = ({ route }) => {
   const { salonId, salonName, salonImage } = route.params;
   const [activeTab, setActiveTab] = useState("Services");
+  const [isFavorite, setIsFavorite] = useState(false);
   const navigation = useNavigation();
-
+  const userId = useSelector(selectUserId);
+  const [addFavorite] = useAddFavoriteMutation();
+  console.log("userId:", userId, "salonId:", salonId);
+  const handleFavoritePress = async () => {
+    try {
+      await addFavorite({ userId, salonId }).unwrap();
+      setIsFavorite(true);
+    } catch (error) {
+      console.error("Failed to add to favorites:", error);
+    }
+  };
   return (
     <>
       <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -23,13 +37,17 @@ export const DetailProductScreen = ({ route }) => {
           <View>
             <HeadingComponent level={1} children={salonName} />
             <View style={styles.addressContainer}>
-              <Icon name="location-on" size={15} color="#00000" />
+              <Icon name="location-on" size={15} color="#000" />
               <Text style={styles.address}>aleja armii krajowej 43, Wroclaw</Text>
             </View>
           </View>
-          <View style={styles.favoriteIcon}>
-            <Icon name="favorite-border" size={35} color="#00000" />
-          </View>
+          <TouchableOpacity onPress={handleFavoritePress} style={styles.favoriteIcon}>
+            <Icon
+              name={isFavorite ? "favorite" : "favorite-border"} // Меняем иконку в зависимости от состояния
+              size={35}
+              color={isFavorite ? "red" : "black"}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.tabContainer}>
           <TouchableOpacity
