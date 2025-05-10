@@ -1,27 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ServiceComponent } from "../components/service/ServiceComponent";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useState } from "react";
+import { ServiceList } from "../components/serviceList/ServiceList";
 
 export const DetailProductScreen = () => {
-  const navigation = useNavigation();
-
-  const services = [
-    { id: "1", name: "Women's haircut", price: "60.00 zł" },
-    { id: "2", name: "Men's haircut", price: "50.00 zł" },
-    { id: "3", name: "Hair coloring", price: "120.00 zł" },
-    { id: "4", name: "Hair styling", price: "80.00 zł" },
-    { id: "5", name: "Women's haircut", price: "60.00 zł" },
-    { id: "6", name: "Men's haircut", price: "50.00 zł" },
-    { id: "7", name: "Hair coloring", price: "120.00 zł" },
-    { id: "8", name: "Hair styling", price: "80.00 zł" },
-  ];
-
-  const handleServicePress = (service) => {
-    navigation.navigate("BookingServiceScreen", { serviceId: service.id, serviceName: service.name });
-  };
-
+  const [activeTab, setActiveTab] = useState("Services");
   return (
     <View style={styles.container}>
       <View style={styles.wrapperInformation}>
@@ -36,17 +20,27 @@ export const DetailProductScreen = () => {
           <Icon name="favorite-border" size={35} color="#00000" />
         </View>
       </View>
-      <FlatList
-        data={services}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleServicePress(item)}>
-            <ServiceComponent name={item.name} price={item.price} />
-          </TouchableOpacity>
-        )}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={styles.tabContainer}>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === "Services" && styles.activeTab]}
+          onPress={() => setActiveTab("Services")}
+        >
+          <Text style={[styles.tabText, activeTab === "Services" && styles.activeTabText]}>Services</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === "Reviews" && styles.activeTab]}
+          onPress={() => setActiveTab("Reviews")}
+        >
+          <Text style={[styles.tabText, activeTab === "Reviews" && styles.activeTabText]}>Reviews</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === "Portfolio" && styles.activeTab]}
+          onPress={() => setActiveTab("Portfolio")}
+        >
+          <Text style={[styles.tabText, activeTab === "Portfolio" && styles.activeTabText]}>Portfolio</Text>
+        </TouchableOpacity>
+      </View>
+      {activeTab === "Services" && <ServiceList />}
     </View>
   );
 };
@@ -62,10 +56,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
   },
-  listContent: {
-    paddingBottom: 100,
-    gap: 20,
-  },
+
   address: {
     fontFamily: "KohSantepheap-Regular",
     fontSize: 13,
@@ -84,5 +75,22 @@ const styles = StyleSheet.create({
   },
   favoriteIcon: {
     marginTop: 12,
+  },
+  tabText: {
+    fontSize: 15,
+    fontFamily: "KohSantepheap-Regular",
+    color: "#000000",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#EAE9E9",
+    borderRadius: 10,
+  },
+  activeTabText: {
+    backgroundColor: "#F7CCC3",
+  },
+  tabContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 35,
   },
 });
