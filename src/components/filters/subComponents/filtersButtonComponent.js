@@ -10,7 +10,6 @@ export const FiltersButtonComponent = () => {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          console.log("Button clicked");
           dispatch(showModal());
         }}
       >

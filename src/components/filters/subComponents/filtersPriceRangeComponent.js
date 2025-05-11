@@ -12,8 +12,9 @@ export const FiltersPriceRangeComponent = () => {
   useEffect(() => {
     setSliderValue(globalPriceRange[1]);
   }, [globalPriceRange]);
+
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.sliderNumbers}>
         <View style={styles.numberContainer}>
           <Text style={{ fontFamily: "KohSantepheap-Regular" }}>0</Text>
@@ -40,7 +41,8 @@ export const FiltersPriceRangeComponent = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
+    marginTop: 15,
+    marginBottom: 20,
   },
   sliderNumbers: {
     flexDirection: "row",

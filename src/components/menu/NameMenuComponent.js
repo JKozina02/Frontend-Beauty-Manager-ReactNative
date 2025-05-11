@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { PopMenuComponent } from "./PopMenuComponent";
 import { SearchBarComponent } from "../searchBar/SearchBarComponent.js";
 import { FiltersButtonComponent } from "../filters/subComponents/FiltersButtonComponent";
+import { FiltersComponent } from "../filters/FiltersComponent.js";
 
 export const NameMenuComponent = ({ userName }) => {
   return (
@@ -18,6 +19,7 @@ export const NameMenuComponent = ({ userName }) => {
       <View style={styles.wrapperFilters}>
         <SearchBarComponent />
         <FiltersButtonComponent />
+        <FiltersComponent />
       </View>
     </View>
   );
