@@ -3,13 +3,15 @@ import { View, Text, Pressable, StyleSheet, Modal, TouchableOpacity, Image } fro
 import { useNavigation } from "@react-navigation/native";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import { useRoute } from "@react-navigation/native";
 
 export const SettingsScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
-
+  const route = useRoute();
+  const selectedCity = route.params?.selectedCity || "Wybierz miasto";
   const handleCityPress = () => {
     navigation.navigate("CitySelectionScreen");
   };
@@ -31,7 +33,7 @@ export const SettingsScreen = () => {
       </View>
 
       <Pressable style={styles.selectionBox} onPress={handleCityPress}>
-        <Text style={styles.selectionText}>{t("city")}</Text>
+        <Text style={styles.selectionText}>{selectedCity}</Text>
         <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
       </Pressable>
 
