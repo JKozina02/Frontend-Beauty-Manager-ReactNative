@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAddFavoriteMutation } from "../store/services/productsApi";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../store/slices/auth.slice";
+import { PortfolioList } from "../components/portfolio/PortfolioList";
 
 export const DetailProductScreen = ({ route }) => {
   const { salonId, salonName, salonImage } = route.params;
@@ -16,7 +17,7 @@ export const DetailProductScreen = ({ route }) => {
   const navigation = useNavigation();
   const userId = useSelector(selectUserId);
   const [addFavorite] = useAddFavoriteMutation();
-  console.log("userId:", userId, "salonId:", salonId);
+
   const handleFavoritePress = async () => {
     try {
       await addFavorite({ userId, salonId }).unwrap();
@@ -42,11 +43,7 @@ export const DetailProductScreen = ({ route }) => {
             </View>
           </View>
           <TouchableOpacity onPress={handleFavoritePress} style={styles.favoriteIcon}>
-            <Icon
-              name={isFavorite ? "favorite" : "favorite-border"} // Меняем иконку в зависимости от состояния
-              size={35}
-              color={isFavorite ? "red" : "black"}
-            />
+            <Icon name={isFavorite ? "favorite" : "favorite-border"} size={35} color={isFavorite ? "red" : "black"} />
           </TouchableOpacity>
         </View>
         <View style={styles.tabContainer}>
@@ -70,6 +67,7 @@ export const DetailProductScreen = ({ route }) => {
           </TouchableOpacity>
         </View>
         {activeTab === "Services" && <ServiceList />}
+        {activeTab === "Portfolio" && <PortfolioList />}
       </View>
     </>
   );
