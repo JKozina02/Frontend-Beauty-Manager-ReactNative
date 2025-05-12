@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  ActivityIndicator,
+  Pressable,
+  Image,
+} from "react-native";
+import { CustomTextComponent } from "../components/customText/CustomTextComponent";
 
 const CitySelectionScreen = ({ navigation }) => {
   const [cities, setCities] = useState([]);
@@ -44,13 +55,20 @@ const CitySelectionScreen = ({ navigation }) => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" />
-        <Text>Ładowanie miast...</Text>
+        <CustomTextComponent>Ładowanie miast...</CustomTextComponent>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.goBack()}>
+          <Image source={require("../../assets/arrow.png")} style={styles.backArrow} />
+        </Pressable>
+        <Text style={styles.headerText}>Cities</Text>
+        <View style={{ width: 24 }} />
+      </View>
       <TextInput
         style={styles.searchInput}
         placeholder="Szukaj miasta..."
@@ -77,10 +95,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#FFFFFF",
+    paddingTop: 57,
+    paddingHorizontal: 20,
   },
   searchInput: {
     height: 50,
-    borderColor: "#ccc",
+    borderColor: "#F7CCC3",
     borderWidth: 1,
     paddingHorizontal: 8,
     marginBottom: 16,
@@ -90,10 +110,25 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
+    fontSize: 16,
   },
   centered: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 49,
+  },
+  backArrow: {
+    width: 37,
+    height: 11,
+  },
+  headerText: {
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
