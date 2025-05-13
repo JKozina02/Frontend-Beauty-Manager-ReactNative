@@ -246,5 +246,3 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
 });
-
-export default PopMenuComponent;

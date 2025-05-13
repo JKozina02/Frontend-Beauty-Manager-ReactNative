@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
-import { addDate, removeDate } from "../../../store/slices/filterSlice";
+import { addDate, removeDate } from "../../../store/slices/filter.slice";
 import { daysOfWeek, getDaysInMonth, getFirstDayOfMonth } from "../../../utils/callendar/callendarUtils";
 
 export const FiltersCallendarComponent = () => {

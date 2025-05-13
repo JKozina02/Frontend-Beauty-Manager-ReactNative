@@ -1,6 +1,6 @@
 import { Modal, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { hideModal } from "../../store/slices/filterSlice";
+import { hideModal } from "../../store/slices/filter.slice";
 import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
 import { FiltersCategoryComponent } from "./subComponents/FiltersCategoryComponent";
 import { FiltersPriceRangeComponent } from "./subComponents/FiltersPriceRangeComponent";
@@ -10,7 +10,8 @@ import { HeadingComponent } from "../heading/HeadingComponent";
 export const FiltersComponent = () => {
   const dispatch = useDispatch();
   const isFiltersVisible = useSelector((state) => state.filter.isFiltersVisible);
-  //TODO IMPLEMENT SAVE
+  console.log("Filters visible:", isFiltersVisible);
+
   return (
     <Modal
       animationType="fade"

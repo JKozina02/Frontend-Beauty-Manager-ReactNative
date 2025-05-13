@@ -54,11 +54,12 @@ export const SignUpScreen = () => {
         setAuthData({
           jwtToken: response.jwtToken,
           user: response.user,
+          name: response.user.name,
         })
       );
 
       dispatch(resetForm());
-      navigation.navigate("Home");
+      navigation.navigate("MainScreen");
     } catch (error) {
       console.error("Registration failed:", error);
     }

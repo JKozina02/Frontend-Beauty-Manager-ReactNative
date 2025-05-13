@@ -1,14 +1,12 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
-import FractionalStar from '../ui//FractionalStar'; // Import your FractionalStar component
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { renderStars } from "../../utils/renderStars/renderStars";
 
 const ProductComponent = ({ id, image, name, address, rating }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('ServiceDetailsScreen', { id });
+    navigation.navigate("ServiceDetailsScreen", { id });
   };
 
   return (
@@ -20,7 +18,7 @@ const ProductComponent = ({ id, image, name, address, rating }) => {
           <Text style={styles.address}>{address}</Text>
           <View style={styles.starsRow}>
             {renderStars(rating ?? 0)}
-            <Text style={styles.ratingText}>{rating?.toFixed(1) ?? '0.0'}</Text>
+            <Text style={styles.ratingText}>{rating?.toFixed(1) ?? "0.0"}</Text>
           </View>
         </View>
       </View>
@@ -28,37 +26,10 @@ const ProductComponent = ({ id, image, name, address, rating }) => {
   );
 };
 
-
-const renderStars = (rating) => {
-  const stars = [];
-  const fullStars = Math.floor(rating);
-  const decimal = rating - fullStars;
-
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(<Icon key={`full-${i}`} name="star" size={20} color="#FFD700" />);
-  }
-
-  if (decimal > 0) {
-    stars.push(<FractionalStar key="fractional" fill={decimal} />);
-  }
-
-  const totalStars = fullStars + (decimal > 0 ? 1 : 0);
-
-  for (let i = totalStars; i < 5; i++) {
-    stars.push(<Icon key={`empty-${i}`} name="star-border" size={20} color="#FFD700" />);
-  }
-
-  return stars;
-};
-
-  
-
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFAFC',
-    margin: 8,
-    overflow: 'hidden',
-    borderRadius:15,
+    overflow: "hidden",
+    borderRadius: 15,
   },
   image: {
     width: 188,
@@ -70,11 +41,11 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   starsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 8,
   },
   address: {
@@ -84,7 +55,7 @@ const styles = StyleSheet.create({
   ratingText: {
     marginLeft: 16,
     fontSize: 13,
-    color: '#FFAE00',
+    color: "#FFAE00",
   },
 });
 
