@@ -16,7 +16,17 @@ export const productsApi = createApi({
         body: { userId, salonId },
       }),
     }),
+    getFavorite: builder.query({
+      query: ({ userId }) => `/favorites?userId=${userId}`,
+    }),
+    deleteFavorite: builder.mutation({
+      query: ({ favoriteId }) => ({
+        url: `/favorites/${favoriteId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetServicesQuery, useAddFavoriteMutation } = productsApi;
+export const { useGetServicesQuery, useAddFavoriteMutation, useGetFavoriteQuery, useDeleteFavoriteMutation } =
+  productsApi;

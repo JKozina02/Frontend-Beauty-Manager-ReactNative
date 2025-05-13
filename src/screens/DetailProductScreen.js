@@ -1,11 +1,11 @@
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ServiceList } from "../components/serviceList/ServiceList";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useAddFavoriteMutation } from "../store/services/productsApi";
+import { useAddFavoriteMutation, useDeleteFavoriteMutation, useGetFavoriteQuery } from "../store/services/productsApi";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../store/slices/auth.slice";
 import { PortfolioList } from "../components/portfolio/PortfolioList";
@@ -17,15 +17,38 @@ export const DetailProductScreen = ({ route }) => {
   const navigation = useNavigation();
   const userId = useSelector(selectUserId);
   const [addFavorite] = useAddFavoriteMutation();
+  const { data: favoriteData, isLoading } = useGetFavoriteQuery({ userId });
+  const [favoriteId, setFavoriteId] = useState(null);
+  const [deleteFavorite] = useDeleteFavoriteMutation();
+
+  useEffect(() => {
+    if (favoriteData) {
+      const favorite = favoriteData.find((fav) => fav.salonId === salonId);
+      setIsFavorite(!!favorite);
+      setFavoriteId(favorite?.favoriteId || null);
+    }
+  }, [favoriteData, salonId]);
 
   const handleFavoritePress = async () => {
-    try {
-      await addFavorite({ userId, salonId }).unwrap();
-      setIsFavorite(true);
-    } catch (error) {
-      console.error("Failed to add to favorites:", error);
+    if (isFavorite) {
+      try {
+        await deleteFavorite({ favoriteId }).unwrap();
+        setIsFavorite(false);
+        setFavoriteId(null);
+      } catch (error) {
+        console.error("Failed to remove from favorites:", error);
+      }
+    } else {
+      try {
+        const result = await addFavorite({ userId, salonId }).unwrap();
+        setIsFavorite(true);
+        setFavoriteId(result.favoriteId);
+      } catch (error) {
+        console.error("Failed to add to favorites:", error);
+      }
     }
   };
+
   return (
     <>
       <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -39,7 +62,7 @@ export const DetailProductScreen = ({ route }) => {
             <HeadingComponent level={1} children={salonName} />
             <View style={styles.addressContainer}>
               <Icon name="location-on" size={15} color="#000" />
-              <Text style={styles.address}>aleja armii krajowej 43, Wroclaw</Text>
+              <Text style={styles.address}>Aleja Armii Krajowej 43, Wroclaw</Text>
             </View>
           </View>
           <TouchableOpacity onPress={handleFavoritePress} style={styles.favoriteIcon}>
@@ -68,6 +91,11 @@ export const DetailProductScreen = ({ route }) => {
         </View>
         {activeTab === "Services" && <ServiceList />}
         {activeTab === "Portfolio" && <PortfolioList />}
+        {activeTab === "Reviews" && (
+          <View>
+            <Text style={{ color: "black", textAlign: "center", fontSize: 15 }}>Here will be reviews.</Text>
+          </View>
+        )}
       </View>
     </>
   );
