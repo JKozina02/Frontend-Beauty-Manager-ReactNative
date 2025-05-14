@@ -7,7 +7,7 @@ export const FiltersCategoryComponent = () => {
   const selectedCategory = useSelector((state) => state.filter.filters.category);
 
   const categories = ["Nails", "Hair", "Eyelashes", "Eyebrows", "MakeUp"];
-  
+
   return (
     <View style={styles.categoriesContainer}>
       {categories.map((category) => (
