@@ -78,7 +78,10 @@ export const PopMenuComponent = ({ userName, role }) => {
                 colour="#000000"
               />
               <MenuItemComponent
-                onPress={() => console.log("Favorites")}
+                onPress={() => {
+                  navigation.navigate("FavoritesScreen");
+                  toggleMenu();
+                }}
                 source="hearto"
                 imageStyle={styles.imgOptionStyle}
                 option="Favorites"
