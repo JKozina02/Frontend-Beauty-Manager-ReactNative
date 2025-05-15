@@ -25,11 +25,11 @@ export const DetailProductScreen = ({ route }) => {
 
   const [addFavoriteMutation] = useAddFavoriteMutation();
   const [deleteFavoriteMutation] = useDeleteFavoriteMutation();
+  const { data: serverFavorites = [] } = useGetFavoriteQuery({ userId });
 
   useEffect(() => {
     const syncFavoritesWithServer = async () => {
       try {
-        const serverFavorites = useGetFavoriteQuery({ userId });
         const localFavorites = await loadFavoritesFromLocalStorage();
 
         const favoritesToAdd = localFavorites.filter(
