@@ -9,6 +9,9 @@ export const productsApi = createApi({
     getServices: builder.query({
       query: () => "/salons",
     }),
+    getSalonsServices: builder.query({
+      query: ({ salonId }) => `/salons/${salonId}/services`,
+    }),
     addFavorite: builder.mutation({
       query: ({ userId, salonId }) => ({
         url: "/favorites",
@@ -28,5 +31,10 @@ export const productsApi = createApi({
   }),
 });
 
-export const { useGetServicesQuery, useAddFavoriteMutation, useGetFavoriteQuery, useDeleteFavoriteMutation } =
-  productsApi;
+export const {
+  useGetServicesQuery,
+  useAddFavoriteMutation,
+  useGetFavoriteQuery,
+  useDeleteFavoriteMutation,
+  useGetSalonsServicesQuery,
+} = productsApi;

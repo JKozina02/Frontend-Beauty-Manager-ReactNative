@@ -143,7 +143,7 @@ export const DetailProductScreen = ({ route }) => {
             <Text style={[styles.tabText, activeTab === "Portfolio" && styles.activeTabText]}>Portfolio</Text>
           </TouchableOpacity>
         </View>
-        {activeTab === "Services" && <ServiceList />}
+        {activeTab === "Services" && <ServiceList salonId={salonId} />}
         {activeTab === "Portfolio" && <PortfolioList />}
         {activeTab === "Reviews" && (
           <View>

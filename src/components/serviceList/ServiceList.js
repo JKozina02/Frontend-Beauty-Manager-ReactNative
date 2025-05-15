@@ -1,32 +1,39 @@
-import { useNavigation } from "@react-navigation/native";
-import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { ServiceComponent } from "../service/ServiceComponent";
+import { useGetSalonsServicesQuery } from "../../store/services/productsApi";
 
-export const ServiceList = () => {
+export const ServiceList = ({ salonId }) => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const salonIdParam = salonId || route.params?.salonId;
+  const { data: services = [], isLoading, error } = useGetSalonsServicesQuery({ salonId: salonIdParam });
 
   const handleServicePress = (service) => {
     navigation.navigate("BookingServiceScreen", { serviceId: service.id, serviceName: service.name });
   };
+  console.log("services", services);
 
-  const services = [
-    { id: "1", name: "Women's haircut", price: "60.00 zł" },
-    { id: "2", name: "Men's haircut", price: "50.00 zł" },
-    { id: "3", name: "Hair coloring", price: "120.00 zł" },
-    { id: "4", name: "Hair styling", price: "80.00 zł" },
-    { id: "5", name: "Women's haircut", price: "60.00 zł" },
-    { id: "6", name: "Men's haircut", price: "50.00 zł" },
-    { id: "7", name: "Hair coloring", price: "120.00 zł" },
-    { id: "8", name: "Hair styling", price: "80.00 zł" },
-  ];
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error loading services.</Text>;
+  }
+
+  if (!services.length) {
+    return <Text>No services found for this salon.</Text>;
+  }
 
   return (
     <FlatList
       data={services}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.serviceId}
       renderItem={({ item }) => (
         <TouchableOpacity onPress={() => handleServicePress(item)}>
-          <ServiceComponent name={item.name} price={item.price} />
+          <ServiceComponent name={item.title} price={`${item.price} zl`} />
         </TouchableOpacity>
       )}
       contentContainerStyle={styles.listContent}
