@@ -16,7 +16,7 @@ export const FiltersHeaderComponent = () => {
       <HeadingComponent level={3} children={"Filters"} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => dispatch(resetFilters())}>
-          <Text style={{ fontSize: 16, fontFamily: "KohSantepheap-Regular" }}>Reset</Text>
+          <Text style={{ fontSize: 20, fontFamily: "KohSantepheap-Regular" }}>Reset</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 54,
+    marginBottom: 40,
   },
   buttonContainer: {
     width: "15%",

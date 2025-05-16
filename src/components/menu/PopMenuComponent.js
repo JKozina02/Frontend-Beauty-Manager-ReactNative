@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { useDispatch, useSelector } from "react-redux";
 import { closeMenu, openMenu } from "../../store/slices/MenuSlice";
 import MenuItemComponent from "./MenuItemComponent";
+import { useNavigation } from "@react-navigation/native";
 
 export const PopMenuComponent = ({ userName, role }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export const PopMenuComponent = ({ userName, role }) => {
   const topLineAnim = useRef(new Animated.Value(0)).current;
   const bottomLineAnim = useRef(new Animated.Value(0)).current;
   const middleLineOpacity = useRef(new Animated.Value(1)).current;
+  const navigation = useNavigation();
 
   const toggleMenu = () => {
     if (isOpen) {
@@ -46,7 +48,10 @@ export const PopMenuComponent = ({ userName, role }) => {
             </View>
             <View style={styles.menuItems}>
               <MenuItemComponent
-                onPress={() => console.log("Profile")}
+                onPress={() => {
+                  navigation.navigate("ProfileScreen");
+                  toggleMenu();
+                }}
                 source="account-outline"
                 imageStyle={styles.imgOptionStyle}
                 option="Profile"
@@ -73,7 +78,10 @@ export const PopMenuComponent = ({ userName, role }) => {
                 colour="#000000"
               />
               <MenuItemComponent
-                onPress={() => console.log("Favorites")}
+                onPress={() => {
+                  navigation.navigate("FavoritesScreen");
+                  toggleMenu();
+                }}
                 source="hearto"
                 imageStyle={styles.imgOptionStyle}
                 option="Favorites"

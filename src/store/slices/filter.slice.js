@@ -3,47 +3,45 @@ import { createSlice } from "@reduxjs/toolkit";
 const filterSlice = createSlice({
   name: "filter",
   initialState: {
-    filter: {
-      isFiltersVisible: true, // Должно быть true после нажатия кнопки
-      filters: {
-        category: null,
-        priceRange: [0, 2500],
-        dates: [],
-      },
+    isFiltersVisible: false,
+    filters: {
+      category: null,
+      priceRange: [0, 2500],
+      dates: [],
     },
   },
   reducers: {
     showModal: (state) => {
       console.log("showModal called");
-      state.filter.isFiltersVisible = true;
+      state.isFiltersVisible = true;
     },
     hideModal: (state) => {
       console.log("hideModal called");
-      state.filter.isFiltersVisible = false;
+      state.isFiltersVisible = false;
     },
 
     addDate: (state, action) => {
-      state.filter.filters.dates.push(action.payload);
+      state.filters.dates.push(action.payload);
     },
 
     removeDate: (state, action) => {
-      state.filter.filters.dates = state.filters.dates.filter((date) => date !== action.payload);
+      state.filters.dates = state.filters.dates.filter((date) => date !== action.payload);
     },
 
     setCategory: (state, action) => {
-      state.filter.filters.category = action.payload;
+      state.filters.category = action.payload;
     },
 
     setPriceRange: (state, action) => {
-      state.filter.filters.priceRange = action.payload;
+      state.filters.priceRange = action.payload;
     },
 
     setRating: (state, action) => {
-      state.filter.filters.rating = action.payload;
+      state.filters.rating = action.payload;
     },
 
     resetFilters: (state) => {
-      state.filter.filters = {
+      state.filters = {
         category: null,
         priceRange: [0, 2500],
         dates: [],

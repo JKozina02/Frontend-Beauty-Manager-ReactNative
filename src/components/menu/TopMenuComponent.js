@@ -4,6 +4,7 @@ import { PopMenuComponent } from "./PopMenuComponent";
 import { useNavigation } from "@react-navigation/native";
 import { SearchBarComponent } from "../searchBar/SearchBarComponent";
 import { FiltersButtonComponent } from "../filters/subComponents/FiltersButtonComponent";
+import { FiltersComponent } from "../filters/FiltersComponent";
 
 export const TopMenuComponent = ({ title, name }) => {
   const navigation = useNavigation();
@@ -22,6 +23,7 @@ export const TopMenuComponent = ({ title, name }) => {
       <View style={styles.wrapperFilters}>
         <SearchBarComponent />
         <FiltersButtonComponent />
+        <FiltersComponent />
       </View>
     </View>
   );

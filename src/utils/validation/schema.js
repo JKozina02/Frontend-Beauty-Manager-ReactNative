@@ -60,3 +60,7 @@ export const schemaSignIn = yup.object().shape({
       return true;
     }),
 });
+
+export const schemaProfile = yup.object().shape({
+  email: yup.string().email("Invalid email format").required("Email is a required field"),
+});

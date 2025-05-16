@@ -37,14 +37,13 @@ const CategoryScreen = () => {
   const salonCount = filteredSalons.length;
 
   return (
-    <View>
+    <View style={styles.container}>
       <TopMenuComponent title={categoryName} name={name} />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <HeadingComponent level={3} color="#000000" children={`${categoryName} - ${salonCount}`} />
         {filteredSalons.length > 0 ? (
           <FlatList
             data={filteredSalons}
-            ontentContainerStyle={styles.listContent}
             keyExtractor={(item) => item.salonId}
             renderItem={({ item }) => (
               <ProductComponent
@@ -55,6 +54,9 @@ const CategoryScreen = () => {
                 rating={item.rating || 3.5}
               />
             )}
+            numColumns={2}
+            columnWrapperStyle={styles.row}
+            contentContainerStyle={styles.listContent}
           />
         ) : (
           <Text style={styles.emptyText}>No salons found for this category.</Text>
@@ -65,13 +67,21 @@ const CategoryScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFAFC",
+  },
   scrollView: {
     marginTop: 20,
-    marginHorizontal: 20,
     gap: 20,
+    paddingHorizontal: 10,
   },
   listContent: {
+    marginTop: 20,
     gap: 20,
+  },
+  row: {
+    justifyContent: "space-between",
   },
 });
 
