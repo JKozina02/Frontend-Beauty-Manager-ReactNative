@@ -1,0 +1,171 @@
+import { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { daysOfWeek, getDaysInMonth, getFirstDayOfMonth } from "../../utils/callendar/callendarUtils";
+
+export const CallendarComponent = ({
+  multiple = false,
+  selectedDates = [],
+  selectedDate = null,
+  onChange,
+}) => {
+  const currentDate = new Date();
+  const [month, setMonth] = useState(currentDate.getMonth());
+  const [year, setYear] = useState(currentDate.getFullYear());
+
+  const isSelected = (date) => {
+    if (multiple) return selectedDates.includes(date);
+    return selectedDate === date;
+  };
+
+  const handleDatePress = (day) => {
+    const date = `${year}-${month + 1}-${day}`;
+    if (multiple) {
+      if (selectedDates.includes(date)) {
+        onChange(selectedDates.filter((d) => d !== date));
+      } else {
+        onChange([...selectedDates, date]);
+      }
+    } else {
+      onChange(date);
+    }
+  };
+
+  const renderDays = () => {
+    let all = 0;
+    const daysInMonth = getDaysInMonth(month, year);
+    const firstDay = getFirstDayOfMonth(month, year);
+    const days = [];
+
+    for (let i = 0; i < firstDay; i++) {
+      all++;
+      days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = `${year}-${month + 1}-${i}`;
+      all++;
+      days.push(
+        <TouchableOpacity
+          key={i}
+          style={[styles.day, isSelected(date) && styles.selectedDay]}
+          onPress={() => handleDatePress(i)}
+        >
+          <Text style={styles.dayText}>{i}</Text>
+        </TouchableOpacity>
+      );
+    }
+
+    for (let i = all; i < 42; i++) {
+      days.push(<View key={`empty-${i}`} style={styles.emptyDay}></View>);
+    }
+
+    return days;
+  };
+
+  const handlePrevMonth = () => {
+    if (month === 0) {
+      setMonth(11);
+      setYear(year - 1);
+    } else {
+      setMonth(month - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (month === 11) {
+      setMonth(0);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.callendar}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handlePrevMonth}>
+            <AntDesign name="caretleft" style={styles.icon} />
+          </TouchableOpacity>
+          <Text style={styles.callendarMonth}>
+            {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
+          </Text>
+          <TouchableOpacity onPress={handleNextMonth}>
+            <AntDesign name="caretright" style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.weekdays}>
+          {daysOfWeek.map((day, index) => (
+            <Text key={index} style={styles.weekday}>
+              {day}
+            </Text>
+          ))}
+        </View>
+        <View style={styles.days}>{renderDays()}</View>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  callendar: {
+    padding: 10,
+    width: "90%",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#F7CCC3",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  callendarMonth: {
+    fontFamily: "KohSantepheap-Bold",
+    fontSize: 18,
+  },
+  weekdays: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 5,
+  },
+  weekday: {
+    flex: 1,
+    textAlign: "center",
+    fontFamily: "KohSantepheap-Bold",
+    color: "#898DA9",
+  },
+  days: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  day: {
+    width: "13%",
+    height: "13%",
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 8,
+    borderRadius: 100,
+    backgroundColor: "#f5f5f5",
+  },
+  selectedDay: {
+    backgroundColor: "#F7CCC3",
+  },
+  dayText: {
+    fontSize: 16,
+  },
+  emptyDay: {
+    width: "13%",
+    height: "13%",
+    aspectRatio: 1,
+    marginBottom: 8,
+  },
+});

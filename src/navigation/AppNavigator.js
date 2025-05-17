@@ -6,6 +6,7 @@ import { NotFoundScreen } from "../screens/NotFoundScreen";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../store/slices/auth.slice";
 import { MainScreen } from "../screens/MainScreen";
+import BookingServiceScreen from "../screens/BookingServiceScreen";
 import CategoryScreen from "../screens/CategoryScreen";
 
 const Stack = createNativeStackNavigator();
@@ -23,10 +24,11 @@ const HomeStack = () => (
     <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }} />
     <Stack.Screen name="*" component={NotFoundScreen} options={{ headerShown: false }} />
     <Stack.Screen name="CategoryScreen" component={CategoryScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="BookingServiceScreen" component={BookingServiceScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 
-export const AppNavigator = () => {
+export const AppNavigator = () => {  
   const { jwtToken } = useSelector(selectAuth);
 
   return jwtToken ? <HomeStack /> : <AuthStack />;
