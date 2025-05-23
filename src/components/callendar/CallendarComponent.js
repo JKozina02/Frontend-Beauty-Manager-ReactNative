@@ -3,12 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { daysOfWeek, getDaysInMonth, getFirstDayOfMonth } from "../../utils/callendar/callendarUtils";
 
-export const CallendarComponent = ({
-  multiple = false,
-  selectedDates = [],
-  selectedDate = null,
-  onChange,
-}) => {
+export const CallendarComponent = ({ multiple = false, selectedDates = [], selectedDate = null, onChange }) => {
   const currentDate = new Date();
   const [month, setMonth] = useState(currentDate.getMonth());
   const [year, setYear] = useState(currentDate.getFullYear());

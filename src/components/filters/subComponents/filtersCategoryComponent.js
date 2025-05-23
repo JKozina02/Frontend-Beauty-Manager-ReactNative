@@ -6,7 +6,8 @@ export const FiltersCategoryComponent = () => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector((state) => state.filter.filters.category);
 
-  const categories = ["Nails", "Hair", "Lashes", "Brows", "Make Up"];
+  const categories = ["Nails", "Hair", "Eyelashes", "Eyebrows", "MakeUp"];
+
   return (
     <View style={styles.categoriesContainer}>
       {categories.map((category) => (
@@ -29,13 +30,15 @@ const styles = StyleSheet.create({
   categoriesContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    marginTop: 20,
+    marginBottom: 40,
+    gap: 5,
   },
   categoryButton: {
     backgroundColor: "#f5f5f5",
     padding: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    margin: 5,
     alignItems: "center",
     justifyContent: "center",
   },

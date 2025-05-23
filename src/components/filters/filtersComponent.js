@@ -1,15 +1,17 @@
-import { Modal, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Modal, View, StyleSheet, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { hideModal } from "../../store/slices/filter.slice";
+import { hideModal, setDates } from "../../store/slices/filter.slice";
 import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
 import { FiltersCategoryComponent } from "./subComponents/FiltersCategoryComponent";
 import { FiltersPriceRangeComponent } from "./subComponents/FiltersPriceRangeComponent";
-import { FiltersCallendarComponent } from "./subComponents/FiltersCallendarComponent";
+import { CallendarComponent } from "../callendar/CallendarComponent";
 import { HeadingComponent } from "../heading/HeadingComponent";
+import { CustomButton } from "../buttons/CustomButton";
 
 export const FiltersComponent = () => {
   const dispatch = useDispatch();
   const isFiltersVisible = useSelector((state) => state.filter.isFiltersVisible);
+  const selectedDates = useSelector((state) => state.filter.filters.dates);
   console.log("Filters visible:", isFiltersVisible);
 
   return (
@@ -26,7 +28,7 @@ export const FiltersComponent = () => {
         <HeadingComponent level={4} children={"Price Range"} />
         <FiltersPriceRangeComponent />
         <HeadingComponent level={4} children={"Date"} />
-        <FiltersCallendarComponent />
+        <CallendarComponent multiple selectedDates={selectedDates} onChange={(dates) => dispatch(setDates(dates))} />
         <TouchableOpacity style={styles.button} onPress={() => dispatch(hideModal())}>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
@@ -40,27 +42,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     padding: 15,
-    justifyContent: "space-between--",
-  },
-  button: {
-    backgroundColor: "#000000",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-  },
-  buttonText: {
-    fontFamily: "KohSantepheap-Regular",
-    color: "#ffffff",
-    fontSize: 16,
+    justifyContent: "space-between",
   },
   icon: {
     height: 30,
     width: 30,
-  },
-  category: {
-    marginTop: 5,
-    marginBottom: 5,
   },
 });

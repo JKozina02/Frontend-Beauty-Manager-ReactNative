@@ -9,7 +9,32 @@ export const productsApi = createApi({
     getServices: builder.query({
       query: () => "/salons",
     }),
+    getSalonsServices: builder.query({
+      query: ({ salonId }) => `/salons/${salonId}/services`,
+    }),
+    addFavorite: builder.mutation({
+      query: ({ userId, salonId }) => ({
+        url: "/favorites",
+        method: "POST",
+        body: { userId, salonId },
+      }),
+    }),
+    getFavorite: builder.query({
+      query: ({ userId }) => `/favorites?userId=${userId}`,
+    }),
+    deleteFavorite: builder.mutation({
+      query: ({ favoriteId }) => ({
+        url: `/favorites/${favoriteId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetServicesQuery } = productsApi;
+export const {
+  useGetServicesQuery,
+  useAddFavoriteMutation,
+  useGetFavoriteQuery,
+  useDeleteFavoriteMutation,
+  useGetSalonsServicesQuery,
+} = productsApi;

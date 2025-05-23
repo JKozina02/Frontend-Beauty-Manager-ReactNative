@@ -20,7 +20,14 @@ export const authApi = createApi({
         body: userData,
       }),
     }),
+    updateUser: builder.mutation({
+      query: ({ id, email }) => ({
+        url: `/users/${id}`,
+        method: "PUT",
+        body: { email },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useUpdateUserMutation } = authApi;

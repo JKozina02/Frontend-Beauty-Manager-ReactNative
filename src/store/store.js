@@ -7,6 +7,7 @@ import menuReducer from "./slices/MenuSlice";
 import searchReducer from "./slices/searchSlice";
 import filterReducer from "./slices/filter.slice";
 import { productsApi } from "./services/productsApi";
+import favoritesReducer from "./slices/favorites.slice";
 
 export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   form: formReducer,
   passwordVisibility: passwordReducer,
   auth: authReducer,
+  favorites: favoritesReducer,
 });
 
 export const store = configureStore({

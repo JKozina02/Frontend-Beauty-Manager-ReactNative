@@ -73,13 +73,13 @@ export const FiltersCallendarComponent = () => {
       <View style={styles.callendar}>
         <View style={styles.header}>
           <TouchableOpacity onPress={handlePrevMonth}>
-            <AntDesign name="caretleft" style={styles.icon} />
+            <AntDesign name="caretleft" color={"#F7CCC3"} style={styles.icon} />
           </TouchableOpacity>
           <Text style={styles.callendarMonth}>
             {new Date(year, month).toLocaleString("en-US", { month: "long" })} {year}
           </Text>
           <TouchableOpacity onPress={handleNextMonth}>
-            <AntDesign name="caretright" style={styles.icon} />
+            <AntDesign name="caretright" color={"#F7CCC3"} style={styles.icon} />
           </TouchableOpacity>
         </View>
         <View style={styles.weekdays}>
@@ -99,9 +99,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    marginTop: 20,
   },
   callendar: {
-    padding: 10,
+    padding: 30,
     width: "90%",
     borderRadius: 8,
     borderWidth: 1,
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 26,
   },
   callendarMonth: {
     fontFamily: "KohSantepheap-Bold",
@@ -141,7 +142,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 8,
     borderRadius: 100,
-    backgroundColor: "#f5f5f5",
   },
   selectedDay: {
     backgroundColor: "#F7CCC3",

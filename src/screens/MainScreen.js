@@ -15,12 +15,20 @@ export const MainScreen = () => {
   const { data, isLoading, error } = useGetServicesQuery();
   const navigation = useNavigation();
   const query = useSelector(selectSearchQuery);
+  const selectedCategoryId = useSelector((state) => state.filter.filters.category);
 
   if (isLoading) return <ActivityIndicator size="large" color="#0000ff" />;
   if (error) return <Text>Error: {error.message}</Text>;
 
   const salons = data?.salonsList || [];
-  const filteredSalons = salons.filter((salon) => salon.title.toLowerCase().includes(query.toLowerCase()));
+
+  const mappedCategory = selectedCategoryId?.trim().toLowerCase() || "";
+
+  const filteredByQuery = salons.filter((salon) => salon.title.toLowerCase().includes(query.toLowerCase()));
+  const filteredByCategory = mappedCategory
+    ? salons.filter((salon) => salon.categories?.some((category) => category.trim().toLowerCase() === mappedCategory))
+    : salons;
+  const filteredSalons = query ? filteredByQuery : filteredByCategory;
   const firstFiveSalons = salons.slice(0, 5);
 
   const handleViewAllPress = () => {
@@ -32,9 +40,9 @@ export const MainScreen = () => {
   return (
     <View style={styles.container}>
       <NameMenuComponent userName={name} />
-      {query ? (
+      {query || selectedCategoryId ? (
         <ScrollView contentContainerStyle={styles.scrollViewResults}>
-          <HeadingComponent level={3} color="#000000" children={`${query} - ${salonCount}`} />
+          <HeadingComponent level={3} color="#000000" children={`${query || selectedCategoryId} - ${salonCount}`} />
 
           <FlatList
             data={filteredSalons}

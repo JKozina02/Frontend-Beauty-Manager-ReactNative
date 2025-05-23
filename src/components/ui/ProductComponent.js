@@ -6,7 +6,11 @@ const ProductComponent = ({ id, image, name, address, rating }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("ServiceDetailsScreen", { id });
+    navigation.navigate("DetailProductScreen", {
+      salonId: id,
+      salonName: name,
+      salonImage: image,
+    });
   };
 
   return (
