@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFAFC",
     paddingTop: 50,
     paddingHorizontal: 20,
+    flex: 1,
   },
   wrapperInformation: {
     flexDirection: "row",
