@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,15 +8,18 @@ import {
   TextInput,
   ActivityIndicator,
   Pressable,
-  Image,
 } from "react-native";
 import { CustomTextComponent } from "../components/customText/CustomTextComponent";
+import { HeadingComponent } from "../components/heading/HeadingComponent";
+import { useTranslation } from "react-i18next";
+import { AntDesign } from "@expo/vector-icons";
 
 const CitySelectionScreen = ({ navigation }) => {
   const [cities, setCities] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCities();
@@ -55,7 +58,7 @@ const CitySelectionScreen = ({ navigation }) => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" />
-        <CustomTextComponent>Ładowanie miast...</CustomTextComponent>
+        <CustomTextComponent>Loading cities</CustomTextComponent>
       </View>
     );
   }
@@ -64,14 +67,15 @@ const CitySelectionScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()}>
-          <Image source={require("../../assets/arrow.png")} style={styles.backArrow} />
+          <AntDesign name="swapleft" size={50} color="black" />
         </Pressable>
-        <Text style={styles.headerText}>Cities</Text>
-        <View style={{ width: 24 }} />
+        <HeadingComponent level={3} color="#000000" children={t("Cities")} />
+        <View style={{ width: 45 }} />
       </View>
       <TextInput
         style={styles.searchInput}
-        placeholder="Szukaj miasta..."
+        placeholder="Search city..."
+        placeholderTextColor="#888"
         value={searchText}
         onChangeText={handleSearch}
       />
@@ -94,22 +98,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFFAFC",
     paddingTop: 57,
     paddingHorizontal: 20,
   },
   searchInput: {
     height: 50,
+    paddingHorizontal: 10,
     borderColor: "#F7CCC3",
     borderWidth: 1,
-    paddingHorizontal: 8,
     marginBottom: 16,
-    borderRadius: 15,
+    borderRadius: 10,
+    fontFamily: "KohSantepheap-Regular",
+    fontSize: 18,
   },
   cityItem: {
-    paddingVertical: 12,
+    paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    borderBottomColor: "#EAE9E9",
     fontSize: 16,
   },
   centered: {
@@ -122,13 +128,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 49,
-  },
-  backArrow: {
-    width: 37,
-    height: 11,
-  },
-  headerText: {
-    fontSize: 25,
-    fontWeight: "bold",
   },
 });

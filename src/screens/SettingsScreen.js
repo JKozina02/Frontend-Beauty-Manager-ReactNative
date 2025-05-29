@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, Pressable, StyleSheet, Modal, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { useRoute } from "@react-navigation/native";
+import { CustomButton } from "../components/buttons/CustomButton";
+import { HeadingComponent } from "../components/heading/HeadingComponent";
+import { AntDesign } from "@expo/vector-icons";
 
 export const SettingsScreen = () => {
   const { t } = useTranslation();
@@ -11,7 +14,7 @@ export const SettingsScreen = () => {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const route = useRoute();
-  const selectedCity = route.params?.selectedCity || "Wybierz miasto";
+  const selectedCity = route.params?.selectedCity || "Wroclaw";
   const handleCityPress = () => {
     navigation.navigate("CitySelectionScreen");
   };
@@ -26,27 +29,24 @@ export const SettingsScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()}>
-          <Image source={require("../../assets/arrow.png")} style={styles.backArrow} />
+          <AntDesign name="swapleft" size={50} color="black" />
         </Pressable>
-        <Text style={styles.headerText}>{t("settings")}</Text>
-        <View style={{ width: 24 }} />
+        <HeadingComponent level={3} color="#000000" children={t("Settings")} />
+        <View style={{ width: 45 }} />
       </View>
 
       <Pressable style={styles.selectionBox} onPress={handleCityPress}>
         <Text style={styles.selectionText}>{selectedCity}</Text>
-        <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
+        <AntDesign name="arrowleft" size={24} color="black" style={styles.icon} />
       </Pressable>
 
       <Pressable style={styles.selectionBox} onPress={() => setLanguageModalVisible(true)}>
         <Text style={styles.selectionText}>
           {selectedLanguage === "en" ? "English" : selectedLanguage === "pl" ? "Polski" : "Русский"}
         </Text>
-        <Image source={require("../../assets/arrowUp.png")} style={styles.arrowIcon} />
+        <AntDesign name="arrowleft" size={24} color="black" style={styles.icon} />
       </Pressable>
-
-      <Pressable style={styles.saveButton}>
-        <Text style={styles.saveButtonText}>{t("save")}</Text>
-      </Pressable>
+      <CustomButton onPress={""} title={t("Save")} backgroundColor="#000000" color={"#FFFAFC"} />
 
       <Modal visible={languageModalVisible} transparent animationType="fade">
         <View style={styles.modalOverlay}>
@@ -60,6 +60,8 @@ export const SettingsScreen = () => {
                 <Text
                   style={{
                     color: lang === selectedLanguage ? "black" : "gray",
+                    fontFamily: "KohSantepheap-Regular",
+                    fontSize: 18,
                   }}
                 >
                   {lang === "en" ? "English" : lang === "pl" ? "Polski" : "Русский"}
@@ -76,9 +78,9 @@ export const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFFAFC",
     paddingHorizontal: 20,
-    paddingTop: 57,
+    paddingTop: 50,
   },
   header: {
     flexDirection: "row",
@@ -86,17 +88,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 49,
   },
-  backbutton: {
-    width: 37,
-    height: 11,
-  },
   headerText: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "KohSantepheap-Bold",
+  },
+  icon: {
+    transform: [{ rotate: "120deg" }],
   },
   selectionBox: {
     backgroundColor: "#F5F5F5",
-    padding: 16,
+    paddingVertical: 20,
+    paddingHorizontal: 28,
     borderRadius: 15,
     marginBottom: 26,
     flexDirection: "row",
@@ -104,24 +106,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectionText: {
+    fontFamily: "KohSantepheap-Regular",
     fontSize: 18,
-    marginLeft: 28,
   },
-  saveButton: {
-    backgroundColor: "black",
-    padding: 16,
-    borderRadius: 15,
-    alignItems: "center",
-    marginTop: 20,
-  },
-  saveButtonText: {
-    color: "#FFFFFF",
-    fontSize: 22,
-  },
-  arrowIcon: {
-    width: 18,
-    height: 18,
-  },
+
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.3)",

@@ -114,7 +114,10 @@ export const PopMenuComponent = ({ userName, role }) => {
                 colour="#000000"
               />
               <MenuItemComponent
-                onPress={() => console.log("Settings")}
+                onPress={() => {
+                  navigation.navigate("SettingsScreen");
+                  toggleMenu();
+                }}
                 source="settings-outline"
                 imageStyle={styles.imgOptionStyle}
                 option="Settings"
