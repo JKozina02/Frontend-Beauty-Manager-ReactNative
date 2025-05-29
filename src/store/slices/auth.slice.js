@@ -24,10 +24,24 @@ export const authSlice = createSlice({
       state.name = null;
       state.expiresAt = null;
     },
+    updateUserData: (state, action) => {
+      if (state.user) {
+        state.user = {
+          ...state.user,
+          ...action.payload,
+        };
+        if (action.payload.name) {
+          state.name = action.payload.name;
+        }
+        if (action.payload.email) {
+          state.email = action.payload.email;
+        }
+      }
+    },
   },
 });
 
-export const { setAuthData, clearAuthData } = authSlice.actions;
+export const { setAuthData, clearAuthData, updateUserData } = authSlice.actions;
 
 export const selectAuth = (state) => state.auth;
 export const selectUserId = (state) => state.auth.user?.id;

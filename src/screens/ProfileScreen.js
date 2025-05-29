@@ -8,12 +8,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaProfile } from "../utils/validation/schema";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../components/buttons/CustomButton";
-import { setEmail } from "../store/slices/form.slice";
+import { setEmail, setName } from "../store/slices/form.slice";
 import { useUpdateUserMutation } from "../store/services/authApi";
+import { updateUserData } from "../store/slices/auth.slice";
+import { Image } from "react-native";
 
 export const ProfileScreen = () => {
   const navigation = useNavigation();
-  const { email: currentEmail, id: userId } = useSelector((state) => state.auth.user);
+  const { email: currentEmail, name: currentName, id: userId } = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [updateUser] = useUpdateUserMutation();
 
@@ -25,18 +27,36 @@ export const ProfileScreen = () => {
     resolver: yupResolver(schemaProfile),
     defaultValues: {
       email: currentEmail,
+      name: currentName,
+      password: "",
+      confirmPassword: "",
     },
   });
 
   const onSubmit = async (data) => {
+    const payload = {
+      id: userId,
+      email: data.email,
+      name: data.name,
+    };
+
+    if (data.password) {
+      payload.password = data.password;
+    }
+
     try {
-      const result = await updateUser({ id: userId, email: data.email }).unwrap();
-      dispatch(setEmail(data.email));
-      console.log("Success", "Email updated successfully!");
+      await updateUser(payload).unwrap();
+      dispatch(
+        updateUserData({
+          name: data.name,
+          email: data.email,
+        })
+      );
+      console.log("Success", "Profile updated successfully!");
       navigation.goBack();
     } catch (error) {
-      console.error("Failed to update email:", error);
-      console.log("Error", "Failed to update email. Please try again.");
+      console.error("Failed to update profile:", error);
+      console.log("Error", "Failed to update profile. Please try again.");
     }
   };
 
@@ -48,7 +68,9 @@ export const ProfileScreen = () => {
         </Pressable>
         <HeadingComponent level={3} children="Profile" />
       </View>
+
       <View style={styles.form}>
+        <Image source={require("../../assets/menu/person1.png")} style={styles.image} />
         <Controller
           control={control}
           name="email"
@@ -65,6 +87,50 @@ export const ProfileScreen = () => {
             />
           )}
         />
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange, value } }) => (
+            <InputComponent
+              placeholder="Your name"
+              type="default"
+              value={value}
+              onChangeText={(text) => {
+                onChange(text);
+                dispatch(setName(text));
+              }}
+              error={errors.name?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <InputComponent
+              placeholder="Change password"
+              type="default"
+              secureTextEntry
+              value={value}
+              onChangeText={onChange}
+              error={errors.password?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({ field: { onChange, value } }) => (
+            <InputComponent
+              placeholder="Repeat password"
+              type="default"
+              secureTextEntry
+              value={value}
+              onChangeText={onChange}
+              error={errors.confirmPassword?.message}
+            />
+          )}
+        />
       </View>
 
       <CustomButton title="Save" color={"#FFFAFC"} backgroundColor={"#000000"} onPress={handleSubmit(onSubmit)} />
@@ -73,9 +139,14 @@ export const ProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  image: {
+    width: 130,
+    height: 130,
+  },
   container: {
-    marginTop: 50,
-    marginHorizontal: 20,
+    backgroundColor: "#FFFAFC",
+    paddingTop: 50,
+    paddingHorizontal: 20,
   },
   wrapperInformation: {
     flexDirection: "row",
@@ -85,5 +156,7 @@ const styles = StyleSheet.create({
   form: {
     marginTop: 20,
     marginBottom: 20,
+    gap: 27,
+    alignItems: "center",
   },
 });
