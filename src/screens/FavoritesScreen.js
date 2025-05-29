@@ -26,42 +26,20 @@ export const FavoritesScreen = () => {
   const { data: serverFavorites = [] } = useGetFavoriteQuery({ userId });
   const { data: products = {}, isLoading, error } = useGetServicesQuery();
   const dispatch = useDispatch();
-  const [addFavoriteMutation] = useAddFavoriteMutation();
-  const [deleteFavoriteMutation] = useDeleteFavoriteMutation();
 
   useEffect(() => {
     const syncFavorites = async () => {
       try {
         const localFavorites = await loadFavoritesFromLocalStorage();
 
-        const favoritesToAdd = localFavorites.filter(
-          (localFav) => !serverFavorites.some((serverFav) => serverFav.salonId === localFav.salonId)
-        );
-
-        const favoritesToRemove = serverFavorites.filter(
-          (serverFav) => !localFavorites.some((localFav) => localFav.salonId === serverFav.salonId)
-        );
-
-        for (const favorite of favoritesToAdd) {
-          await addFavoriteMutation({ userId, salonId: favorite.salonId }).unwrap();
-        }
-
-        for (const favorite of favoritesToRemove) {
-          await deleteFavoriteMutation({ favoriteId: favorite.favoriteId }).unwrap();
-        }
-
-        const updatedFavorites = [...serverFavorites, ...favoritesToAdd].filter(
-          (fav) => !favoritesToRemove.some((removeFav) => removeFav.salonId === fav.salonId)
-        );
-        dispatch(setFavorites(updatedFavorites));
-        await saveFavoritesToLocalStorage(updatedFavorites);
+        dispatch(setFavorites(localFavorites));
       } catch (error) {
         console.error("Failed to sync favorites:", error);
       }
     };
 
     syncFavorites();
-  }, [serverFavorites, dispatch]);
+  }, [dispatch]);
 
   if (isLoading) {
     return <LoadingScreen />;
