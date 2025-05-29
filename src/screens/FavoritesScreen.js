@@ -3,27 +3,16 @@ import { useNavigation } from "@react-navigation/native";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import ProductComponent from "../components/ui/ProductComponent.js";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
-import { selectUserId } from "../store/slices/auth.slice";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useAddFavoriteMutation,
-  useDeleteFavoriteMutation,
-  useGetFavoriteQuery,
-  useGetServicesQuery,
-} from "../store/services/productsApi";
+import { useGetServicesQuery } from "../store/services/productsApi";
 import { LoadingScreen } from "./LoadingScreen.js";
 import { useEffect } from "react";
 import { setFavorites } from "../store/slices/favorites.slice.js";
-import {
-  loadFavoritesFromLocalStorage,
-  saveFavoritesToLocalStorage,
-} from "../utils/favoritesLocalStorage/favoritesLocalStorage.js";
+import { loadFavoritesFromLocalStorage } from "../utils/favoritesLocalStorage/favoritesLocalStorage.js";
 
 export const FavoritesScreen = () => {
   const navigation = useNavigation();
-  const userId = useSelector(selectUserId);
   const favorites = useSelector((state) => state.favorites.favorites);
-  const { data: serverFavorites = [] } = useGetFavoriteQuery({ userId });
   const { data: products = {}, isLoading, error } = useGetServicesQuery();
   const dispatch = useDispatch();
 
