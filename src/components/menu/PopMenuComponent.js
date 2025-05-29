@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeMenu, openMenu } from "../../store/slices/MenuSlice";
 import MenuItemComponent from "./MenuItemComponent";
 import { useNavigation } from "@react-navigation/native";
+import { clearAuthData } from "../../store/slices/auth.slice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const PopMenuComponent = ({ userName, role }) => {
   const dispatch = useDispatch();
@@ -15,6 +17,15 @@ export const PopMenuComponent = ({ userName, role }) => {
   const middleLineOpacity = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation();
   const profileImage = useSelector((state) => state.auth.profileImage);
+
+  const handleLogout = async (dispatch) => {
+    try {
+      await AsyncStorage.removeItem("jwtToken");
+      dispatch(clearAuthData());
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
 
   const toggleMenu = () => {
     if (isOpen) {
@@ -115,7 +126,7 @@ export const PopMenuComponent = ({ userName, role }) => {
 
             <View style={styles.outLog}>
               <MenuItemComponent
-                onPress={() => console.log("Log out")}
+                onPress={() => handleLogout(dispatch)}
                 source="log-out-outline"
                 imageStyle={styles.imgOptionStyle}
                 option="Log out"
