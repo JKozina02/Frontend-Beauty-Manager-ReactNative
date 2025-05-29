@@ -1,6 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { HeadingComponent } from "../components/heading/HeadingComponent";
 import { InputComponent } from "../components/form/InputComponent";
 import { Controller, useForm } from "react-hook-form";
@@ -10,14 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../components/buttons/CustomButton";
 import { setEmail, setName } from "../store/slices/form.slice";
 import { useUpdateUserMutation } from "../store/services/authApi";
-import { updateUserData } from "../store/slices/auth.slice";
+import { setProfileImage, updateUserData } from "../store/slices/auth.slice";
 import { Image } from "react-native";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { pickImage } from "../utils/pickImage/pickImage";
 
 export const ProfileScreen = () => {
   const navigation = useNavigation();
   const { email: currentEmail, name: currentName, id: userId } = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [updateUser] = useUpdateUserMutation();
+  const profileImage = useSelector((state) => state.auth.profileImage);
 
   const {
     control,
@@ -32,6 +36,15 @@ export const ProfileScreen = () => {
       confirmPassword: "",
     },
   });
+  useEffect(() => {
+    const loadImage = async () => {
+      const savedUri = await AsyncStorage.getItem("profileImage");
+      if (savedUri) {
+        dispatch(setProfileImage(savedUri));
+      }
+    };
+    loadImage();
+  }, []);
 
   const onSubmit = async (data) => {
     const payload = {
@@ -52,11 +65,9 @@ export const ProfileScreen = () => {
           email: data.email,
         })
       );
-      console.log("Success", "Profile updated successfully!");
       navigation.goBack();
     } catch (error) {
       console.error("Failed to update profile:", error);
-      console.log("Error", "Failed to update profile. Please try again.");
     }
   };
 
@@ -70,7 +81,12 @@ export const ProfileScreen = () => {
       </View>
 
       <View style={styles.form}>
-        <Image source={require("../../assets/menu/person1.png")} style={styles.image} />
+        <TouchableOpacity onPress={pickImage}>
+          <Image
+            source={profileImage ? { uri: profileImage } : require("../../assets/menu/person1.png")}
+            style={styles.image}
+          />
+        </TouchableOpacity>
         <Controller
           control={control}
           name="email"
@@ -140,8 +156,10 @@ export const ProfileScreen = () => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 130,
-    height: 130,
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+    borderRadius: 15,
   },
   container: {
     backgroundColor: "#FFFAFC",
@@ -151,11 +169,11 @@ const styles = StyleSheet.create({
   wrapperInformation: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 110,
+    gap: 100,
   },
   form: {
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 44,
     gap: 27,
     alignItems: "center",
   },

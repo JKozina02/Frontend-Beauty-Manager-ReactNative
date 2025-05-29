@@ -14,6 +14,7 @@ export const PopMenuComponent = ({ userName, role }) => {
   const bottomLineAnim = useRef(new Animated.Value(0)).current;
   const middleLineOpacity = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation();
+  const profileImage = useSelector((state) => state.auth.profileImage);
 
   const toggleMenu = () => {
     if (isOpen) {
@@ -40,7 +41,10 @@ export const PopMenuComponent = ({ userName, role }) => {
         <Pressable style={styles.modalOverlay} onPress={toggleMenu}>
           <Animated.View style={[styles.container, { transform: [{ translateX: slideAnim }] }]}>
             <View style={styles.header}>
-              <Image style={styles.person} source={require("../../../assets/menu/person1.png")} />
+              <Image
+                source={profileImage ? { uri: profileImage } : require("../../../assets/menu/person1.png")}
+                style={styles.person}
+              />
               <View style={styles.data}>
                 <Text style={styles.name}>{userName}</Text>
                 <Text style={styles.role}>{role}</Text>
