@@ -48,11 +48,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "KohSantepheap-Bold",
     textAlign: "center",
   },
   role: {
     fontSize: 12,
+    fontFamily: "KohSantepheap-Regular",
     textAlign: "center",
     color: "#555",
   },
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     height: 250,
     borderRadius: 20,
     backgroundColor: "#eee",
-    marginLeft: 40, // przesunięcie w prawo, by zrobić miejsce na tekst
+    marginLeft: 40,
   },
   links: {
     flexDirection: "row",
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "#B55E4E",
+    fontFamily: "KohSantepheap-Regular",
     textDecorationLine: "underline",
     marginHorizontal: 10,
     fontSize: 16,

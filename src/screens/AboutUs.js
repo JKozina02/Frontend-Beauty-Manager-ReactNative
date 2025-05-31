@@ -11,7 +11,7 @@ export const AboutUs = () => {
     <View style={styles.screen}>
       <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
-          <AntDesign name="swapleft" size={30} color="black" />
+          <AntDesign name="swapleft" size={50} color="black" />
         </Pressable>
         <Text style={styles.headerTitle}>About Team</Text>
       </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "KohSantepheap-Bold",
     textAlign: "center",
     flex: 1,
     marginRight: 30,
