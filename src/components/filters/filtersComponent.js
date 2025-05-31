@@ -1,4 +1,4 @@
-import { Modal, View, StyleSheet, ScrollView } from "react-native";
+import { Modal, View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal, setDates } from "../../store/slices/filter.slice";
 import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
@@ -29,10 +29,8 @@ export const FiltersComponent = () => {
         <FiltersPriceRangeComponent />
         <HeadingComponent level={4} children={"Date"} />
         <CallendarComponent multiple selectedDates={selectedDates} onChange={(dates) => dispatch(setDates(dates))} />
-        <TouchableOpacity style={styles.button} onPress={() => dispatch(hideModal())}>
-          <Text style={styles.buttonText}>Save</Text>
-        </TouchableOpacity>
       </View>
+      <CustomButton title="Save" color={"#FFFAFC"} backgroundColor={"#000000"} onPress={dispatch(hideModal())} />
     </Modal>
   );
 };
