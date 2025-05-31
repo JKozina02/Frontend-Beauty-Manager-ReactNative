@@ -1,4 +1,4 @@
-import { Modal, View, StyleSheet } from "react-native";
+import { Modal, View, StyleSheet, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal, setDates } from "../../store/slices/filter.slice";
 import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
@@ -23,14 +23,25 @@ export const FiltersComponent = () => {
     >
       <View style={styles.container}>
         <FiltersHeaderComponent />
-        <HeadingComponent level={4} children={"Category"} />
-        <FiltersCategoryComponent />
-        <HeadingComponent level={4} children={"Price Range"} />
-        <FiltersPriceRangeComponent />
-        <HeadingComponent level={4} children={"Date"} />
-        <CallendarComponent multiple selectedDates={selectedDates} onChange={(dates) => dispatch(setDates(dates))} />
+        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+          <HeadingComponent level={4} children={"Category"} />
+          <FiltersCategoryComponent />
+          <HeadingComponent level={4} children={"Price Range"} />
+          <FiltersPriceRangeComponent />
+          <HeadingComponent level={4} children={"Date"} />
+          <CallendarComponent
+            multiple={true}
+            selectedDates={selectedDates}
+            onChange={(dates) => dispatch(setDates(dates))}
+          />
+        </ScrollView>
+        <CustomButton
+          title={"Save"}
+          color={"#FFFAFC"}
+          backgroundColor={"#000000"}
+          onPress={() => dispatch(hideModal())}
+        />
       </View>
-      <CustomButton title="Save" color={"#FFFAFC"} backgroundColor={"#000000"} onPress={dispatch(hideModal())} />
     </Modal>
   );
 };

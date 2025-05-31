@@ -4,7 +4,7 @@ export const loadFavoritesFromLocalStorage = async () => {
   try {
     const serializedState = await AsyncStorage.getItem("favorites");
     if (serializedState === null) {
-      return []; // Если данных нет, возвращаем пустой массив
+      return [];
     }
     return JSON.parse(serializedState);
   } catch (error) {

@@ -12,21 +12,12 @@ const initialState = {
 
 const filterSlice = createSlice({
   name: "filter",
-  initialState: {
-    isFiltersVisible: false,
-    filters: {
-      category: null,
-      priceRange: [0, 2500],
-      dates: [],
-    },
-  },
+  initialState,
   reducers: {
     showModal: (state) => {
-      console.log("showModal called");
       state.isFiltersVisible = true;
     },
     hideModal: (state) => {
-      console.log("hideModal called");
       state.isFiltersVisible = false;
     },
     addDate: (state, action) => {
@@ -69,4 +60,5 @@ export const {
   setRating,
   resetFilters,
 } = filterSlice.actions;
+
 export default filterSlice.reducer;

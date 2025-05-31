@@ -1,9 +1,13 @@
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-export default HourButton = ({ text, selected = false, disabled = false }) => {
+const HourButton = ({ text, selected = false, disabled = false, onPress }) => {
   return (
-    <TouchableOpacity style={[styles.container, selected && styles.selected, disabled && styles.disabled]}>
-      <Text styles={disabled ? styles.disabledText : styles.text}>{text}</Text>
+    <TouchableOpacity
+      style={[styles.container, selected && styles.selected, disabled && styles.disabled]}
+      onPress={onPress}
+      disabled={disabled}
+    >
+      <Text style={disabled ? styles.disabledText : styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -29,3 +33,5 @@ const styles = StyleSheet.create({
     color: "#F5F5F5",
   },
 });
+
+export default HourButton;

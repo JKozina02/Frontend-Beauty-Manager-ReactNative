@@ -12,9 +12,10 @@ export const CallendarComponent = ({ multiple = false, selectedDates = [], selec
     if (multiple) return selectedDates.includes(date);
     return selectedDate === date;
   };
+  const pad = (n) => n.toString().padStart(2, "0");
 
   const handleDatePress = (day) => {
-    const date = `${year}-${month + 1}-${day}`;
+    const date = `${year}-${pad(month + 1)}-${pad(day)}`;
     if (multiple) {
       if (selectedDates.includes(date)) {
         onChange(selectedDates.filter((d) => d !== date));
@@ -38,7 +39,7 @@ export const CallendarComponent = ({ multiple = false, selectedDates = [], selec
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-      const date = `${year}-${month + 1}-${i}`;
+      const date = `${year}-${pad(month + 1)}-${pad(i)}`;
       all++;
       days.push(
         <TouchableOpacity
