@@ -12,6 +12,7 @@ import { BookingServiceScreen } from "../screens/BookingServiceScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { AboutUs } from "../screens/AboutUs";
+import { MemberInfoScreen } from "../screens/MemberInfoScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ const HomeStack = () => (
     <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} options={{ headerShown: false }} />
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
     <Stack.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }} />
+    <Stack.Screen name="MemberInfoScreen" component={MemberInfoScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 

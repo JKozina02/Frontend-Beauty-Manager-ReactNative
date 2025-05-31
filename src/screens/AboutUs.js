@@ -15,7 +15,6 @@ export const AboutUs = () => {
         </Pressable>
         <Text style={styles.headerTitle}>About Team</Text>
       </View>
-
       <View style={styles.contentContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {teamMembers.map((member) => (
@@ -26,6 +25,8 @@ export const AboutUs = () => {
               linkedin={member.linkedin}
               github={member.github}
               image={member.image}
+              about={member.about}
+              participation={member.participation}
             />
           ))}
         </ScrollView>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 25,
     fontFamily: "KohSantepheap-Bold",
     textAlign: "center",
     flex: 1,

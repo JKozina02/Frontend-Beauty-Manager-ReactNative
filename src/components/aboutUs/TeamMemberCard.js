@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, Image, Linking, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export const TeamMemberCard = ({ name, role, linkedin, github, image }) => {
+export const TeamMemberCard = ({ name, role, linkedin, github, image, about, participation }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.card}>
       <View style={styles.contentRow}>
@@ -8,17 +11,27 @@ export const TeamMemberCard = ({ name, role, linkedin, github, image }) => {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.role}>/ {role}</Text>
         </View>
-
-        <Image source={{ uri: image }} style={styles.image} />
+        <Pressable
+          onPress={() =>
+            navigation.navigate("MemberInfoScreen", {
+              name,
+              role,
+              image,
+              github,
+              linkedin,
+              about,
+              participation,
+            })
+          }
+        >
+          <Image source={{ uri: image }} style={styles.image} />
+        </Pressable>
       </View>
-
       <View style={styles.links}>
         <Pressable onPress={() => Linking.openURL(linkedin)}>
           <Text style={styles.link}>LinkedIn</Text>
         </Pressable>
-
         <Text style={styles.linkSpacer}> </Text>
-
         <Pressable onPress={() => Linking.openURL(github)}>
           <Text style={styles.link}>Github</Text>
         </Pressable>
@@ -47,15 +60,16 @@ const styles = StyleSheet.create({
     left: -80,
   },
   name: {
-    fontSize: 18,
+    fontSize: 19,
     fontFamily: "KohSantepheap-Bold",
-    textAlign: "center",
+    textAlign: "left",
   },
   role: {
     fontSize: 12,
     fontFamily: "KohSantepheap-Regular",
-    textAlign: "center",
+    textAlign: "left",
     color: "#555",
+    marginTop: -6,
   },
   image: {
     width: 250,
