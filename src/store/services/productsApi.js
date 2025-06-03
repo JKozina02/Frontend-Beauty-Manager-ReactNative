@@ -15,6 +15,13 @@ export const productsApi = createApi({
     getServiceById: builder.query({
       query: ({ salonId, serviceId }) => `/salons/${salonId}/services/${serviceId}`,
     }),
+    reserveSlot: builder.mutation({
+      query: ({ salonId, serviceId, slotId }) => ({
+        url: `/salons/${salonId}/services/${serviceId}/slots/${slotId}`,
+        method: "PATCH",
+        body: { is_available: false },
+      }),
+    }),
     addFavorite: builder.mutation({
       query: ({ userId, salonId }) => ({
         url: "/favorites",
@@ -41,4 +48,5 @@ export const {
   useDeleteFavoriteMutation,
   useGetSalonsServicesQuery,
   useGetServiceByIdQuery,
+  useReserveSlotMutation,
 } = productsApi;

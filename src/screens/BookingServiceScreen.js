@@ -9,6 +9,7 @@ import { formatDate } from "../utils/callendar/callendarUtils";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { CustomButton } from "../components/buttons/CustomButton";
+import { useReserveSlotMutation } from "../store/services/productsApi";
 
 const BookingServiceScreen = () => {
   const route = useRoute();
@@ -16,8 +17,9 @@ const BookingServiceScreen = () => {
   const { salonId, serviceId } = route.params || {};
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
+  const [reserveSlot, { isLoading: isReserving }] = useReserveSlotMutation();
 
-  const { data: service, isLoading, error } = useGetServiceByIdQuery({ salonId, serviceId });
+  const { data: service, isLoading, error, refetch } = useGetServiceByIdQuery({ salonId, serviceId });
   const selectedSlot =
     selectedHour && service?.slots ? service.slots.find((slot) => slot.slotId === selectedHour) : null;
 
@@ -30,6 +32,24 @@ const BookingServiceScreen = () => {
     setSelectedHour(null);
   }, [selectedDate]);
 
+  const handleReserve = async () => {
+    if (!selectedHour) {
+      alert("Wybierz datę!");
+      return;
+    }
+    try {
+      await reserveSlot({
+        salonId,
+        serviceId,
+        slotId: selectedHour,
+        body: { is_available: false },
+      }).unwrap();
+      await refetch();
+      navigation.navigate("SuccessFullBookingScreen");
+    } catch (e) {
+      alert("Nie udało się zarezerwować slotu!");
+    }
+  };
   if (isLoading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -83,7 +103,8 @@ const BookingServiceScreen = () => {
           title="Booking"
           color={"#FFFAFC"}
           backgroundColor={"#000000"}
-          onPress={() => navigation.navigate("SuccessFullBookingScreen")}
+          disabled={!selectedHour || isReserving}
+          onPress={handleReserve}
         />
       </ScrollView>
     </View>
