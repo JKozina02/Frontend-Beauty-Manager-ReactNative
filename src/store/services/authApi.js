@@ -21,10 +21,10 @@ export const authApi = createApi({
       }),
     }),
     updateUser: builder.mutation({
-      query: ({ id, email }) => ({
+      query: ({ id, ...rest }) => ({
         url: `/users/${id}`,
         method: "PUT",
-        body: { email },
+        body: rest,
       }),
     }),
   }),

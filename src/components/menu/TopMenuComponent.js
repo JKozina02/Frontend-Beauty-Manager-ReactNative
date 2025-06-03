@@ -12,7 +12,7 @@ export const TopMenuComponent = ({ title, name }) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapperHeader}>
-        <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Pressable onPress={() => navigation.goBack()}>
           <AntDesign name="swapleft" size={50} color="black" />
         </Pressable>
         <Text style={styles.title}>{title}</Text>

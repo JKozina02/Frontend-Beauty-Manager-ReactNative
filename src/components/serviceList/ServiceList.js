@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { ServiceComponent } from "../service/ServiceComponent";
+import { FlatList, StyleSheet, Text } from "react-native";
+import ServiceComponent from "../service/ServiceComponent";
 import { useGetSalonsServicesQuery } from "../../store/services/productsApi";
 
 export const ServiceList = ({ salonId }) => {
@@ -11,9 +11,11 @@ export const ServiceList = ({ salonId }) => {
   const { data: services = [], isLoading, error } = useGetSalonsServicesQuery({ salonId: salonIdParam });
 
   const handleServicePress = (service) => {
-    navigation.navigate("BookingServiceScreen", { serviceId: service.id, serviceName: service.name });
+    navigation.navigate("BookingServiceScreen", {
+      salonId: salonIdParam,
+      serviceId: service.serviceId,
+    });
   };
-  console.log("services", services);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -32,9 +34,7 @@ export const ServiceList = ({ salonId }) => {
       data={services}
       keyExtractor={(item) => item.serviceId}
       renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => handleServicePress(item)}>
-          <ServiceComponent name={item.title} price={`${item.price} zl`} />
-        </TouchableOpacity>
+        <ServiceComponent name={item.title} price={`${item.price} zl`} onPress={() => handleServicePress(item)} />
       )}
       contentContainerStyle={styles.listContent}
       showsVerticalScrollIndicator={false}

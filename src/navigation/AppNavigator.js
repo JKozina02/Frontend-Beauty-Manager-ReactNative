@@ -8,11 +8,14 @@ import { selectAuth } from "../store/slices/auth.slice";
 import { MainScreen } from "../screens/MainScreen";
 import CategoryScreen from "../screens/CategoryScreen";
 import { DetailProductScreen } from "../screens/DetailProductScreen";
-import { BookingServiceScreen } from "../screens/BookingServiceScreen";
+import BookingServiceScreen from "../screens/BookingServiceScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { AboutUs } from "../screens/AboutUs";
 import { MemberInfoScreen } from "../screens/MemberInfoScreen";
+import SuccessfullBookingScreen from "../screens/SuccessfullBookingScreen";
+import { SettingsScreen } from "../screens/SettingsScreen";
+import CitySelectionScreen from "../screens/CitySelectionScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +38,13 @@ const HomeStack = () => (
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
     <Stack.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }} />
     <Stack.Screen name="MemberInfoScreen" component={MemberInfoScreen} options={{ headerShown: false }} />
+    <Stack.Screen
+      name="SuccessFullBookingScreen"
+      component={SuccessfullBookingScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen name="SettingsScreen" component={SettingsScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="CitySelectionScreen" component={CitySelectionScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 

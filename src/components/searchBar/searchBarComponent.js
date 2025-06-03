@@ -6,7 +6,6 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 export const SearchBarComponent = () => {
   const dispatch = useDispatch();
   const query = useSelector((state) => state.search.query);
-
   return (
     <View style={styles.container}>
       <TouchableOpacity>

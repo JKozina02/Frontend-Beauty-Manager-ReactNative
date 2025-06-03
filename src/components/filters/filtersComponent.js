@@ -1,16 +1,18 @@
 import { Modal, View, StyleSheet, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { hideModal } from "../../store/slices/filter.slice";
+import { hideModal, setDates } from "../../store/slices/filter.slice";
 import { FiltersHeaderComponent } from "./subComponents/FiltersHeaderComponent";
 import { FiltersCategoryComponent } from "./subComponents/FiltersCategoryComponent";
 import { FiltersPriceRangeComponent } from "./subComponents/FiltersPriceRangeComponent";
-import { FiltersCallendarComponent } from "./subComponents/FiltersCallendarComponent";
+import { CallendarComponent } from "../callendar/CallendarComponent";
 import { HeadingComponent } from "../heading/HeadingComponent";
 import { CustomButton } from "../buttons/CustomButton";
 
 export const FiltersComponent = () => {
   const dispatch = useDispatch();
   const isFiltersVisible = useSelector((state) => state.filter.isFiltersVisible);
+  const selectedDates = useSelector((state) => state.filter.filters.dates);
+  console.log("Filters visible:", isFiltersVisible);
 
   return (
     <Modal
@@ -27,7 +29,11 @@ export const FiltersComponent = () => {
           <HeadingComponent level={4} children={"Price Range"} />
           <FiltersPriceRangeComponent />
           <HeadingComponent level={4} children={"Date"} />
-          <FiltersCallendarComponent />
+          <CallendarComponent
+            multiple={true}
+            selectedDates={selectedDates}
+            onChange={(dates) => dispatch(setDates(dates))}
+          />
         </ScrollView>
         <CustomButton
           title={"Save"}
