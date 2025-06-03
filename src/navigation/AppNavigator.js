@@ -12,6 +12,8 @@ import BookingServiceScreen from "../screens/BookingServiceScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import SuccessfullBookingScreen from "../screens/SuccessfullBookingScreen";
+import { SettingsScreen } from "../screens/SettingsScreen";
+import CitySelectionScreen from "../screens/CitySelectionScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,8 @@ const HomeStack = () => (
       component={SuccessfullBookingScreen}
       options={{ headerShown: false }}
     />
+    <Stack.Screen name="SettingsScreen" component={SettingsScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="CitySelectionScreen" component={CitySelectionScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 

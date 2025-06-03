@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { ServiceList } from "../components/serviceList/ServiceList";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useAddFavoriteMutation, useDeleteFavoriteMutation, useGetFavoriteQuery } from "../store/services/productsApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserId } from "../store/slices/auth.slice";
 import { PortfolioList } from "../components/portfolio/PortfolioList";
@@ -23,36 +22,11 @@ export const DetailProductScreen = ({ route }) => {
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
 
-  const [addFavoriteMutation] = useAddFavoriteMutation();
-  const [deleteFavoriteMutation] = useDeleteFavoriteMutation();
-  const { data: serverFavorites = [] } = useGetFavoriteQuery({ userId });
-
   useEffect(() => {
     const syncFavoritesWithServer = async () => {
       try {
         const localFavorites = await loadFavoritesFromLocalStorage();
-
-        const favoritesToAdd = localFavorites.filter(
-          (localFav) => !serverFavorites.some((serverFav) => serverFav.salonId === localFav.salonId)
-        );
-
-        const favoritesToRemove = serverFavorites.filter(
-          (serverFav) => !localFavorites.some((localFav) => localFav.salonId === serverFav.salonId)
-        );
-
-        for (const favorite of favoritesToAdd) {
-          await addFavoriteMutation({ userId, salonId: favorite.salonId }).unwrap();
-        }
-
-        for (const favorite of favoritesToRemove) {
-          await deleteFavoriteMutation({ favoriteId: favorite.favoriteId }).unwrap();
-        }
-
-        const updatedFavorites = [...serverFavorites, ...favoritesToAdd].filter(
-          (fav) => !favoritesToRemove.some((removeFav) => removeFav.salonId === fav.salonId)
-        );
-        dispatch(setFavorites(updatedFavorites));
-        await saveFavoritesToLocalStorage(updatedFavorites);
+        dispatch(setFavorites(localFavorites));
       } catch (error) {
         console.error("Failed to sync favorites with server:", error);
       }
@@ -61,45 +35,25 @@ export const DetailProductScreen = ({ route }) => {
     const intervalId = setInterval(syncFavoritesWithServer, 12 * 60 * 60 * 1000);
 
     return () => clearInterval(intervalId);
-  }, [userId, dispatch, addFavoriteMutation, deleteFavoriteMutation]);
+  }, [userId, dispatch]);
 
   const isFavorite = Array.isArray(favorites) && favorites.some((fav) => fav.salonId === salonId);
 
   const handleFavoritePress = async () => {
+    const updatedFavorites = isFavorite
+      ? favorites.filter((fav) => fav.salonId !== salonId)
+      : [...favorites, { salonId, userId }];
+
     if (isFavorite) {
-      const favorite = favorites.find((fav) => fav.salonId === salonId);
-      if (!favorite) {
-        console.error("Favorite not found for salonId:", salonId);
-        return;
-      }
-
-      const favoriteId = favorite.favoriteId;
-
-      const updatedFavorites = favorites.filter((fav) => fav.salonId !== salonId);
       dispatch(removeFavorite(salonId));
-      await saveFavoritesToLocalStorage(updatedFavorites);
-
-      try {
-        await deleteFavoriteMutation({ favoriteId }).unwrap();
-      } catch (error) {
-        console.error("Failed to remove from favorites:", error);
-        dispatch(addFavorite({ salonId, userId }));
-        await saveFavoritesToLocalStorage([...updatedFavorites, { salonId, userId }]);
-      }
     } else {
-      const newFavorite = { salonId, userId };
+      dispatch(addFavorite({ salonId, userId }));
+    }
 
-      const updatedFavorites = [...favorites, newFavorite];
-      dispatch(addFavorite(newFavorite));
+    try {
       await saveFavoritesToLocalStorage(updatedFavorites);
-
-      try {
-        await addFavoriteMutation({ userId, salonId }).unwrap();
-      } catch (error) {
-        console.error("Failed to add to favorites:", error);
-        dispatch(removeFavorite(salonId));
-        await saveFavoritesToLocalStorage(favorites);
-      }
+    } catch (error) {
+      console.error("Failed to update favorites in localStorage:", error);
     }
   };
 
