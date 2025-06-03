@@ -1,7 +1,7 @@
 import { Text, StyleSheet } from "react-native";
 
-export const CustomTextComponent = ({ children }) => {
-  return <Text style={styles.text}>{children}</Text>;
+export const CustomTextComponent = ({ children, style }) => {
+  return <Text style={[styles.text, style]}>{children}</Text>;
 };
 
 const styles = StyleSheet.create({

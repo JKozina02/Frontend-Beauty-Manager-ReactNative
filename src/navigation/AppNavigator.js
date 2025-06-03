@@ -8,9 +8,10 @@ import { selectAuth } from "../store/slices/auth.slice";
 import { MainScreen } from "../screens/MainScreen";
 import CategoryScreen from "../screens/CategoryScreen";
 import { DetailProductScreen } from "../screens/DetailProductScreen";
-import { BookingServiceScreen } from "../screens/BookingServiceScreen";
+import BookingServiceScreen from "../screens/BookingServiceScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
+import SuccessfullBookingScreen from "../screens/SuccessfullBookingScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
 import CitySelectionScreen from "../screens/CitySelectionScreen";
 
@@ -33,6 +34,11 @@ const HomeStack = () => (
     <Stack.Screen name="BookingServiceScreen" component={BookingServiceScreen} options={{ headerShown: false }} />
     <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} options={{ headerShown: false }} />
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
+    <Stack.Screen
+      name="SuccessFullBookingScreen"
+      component={SuccessfullBookingScreen}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen name="SettingsScreen" component={SettingsScreen} options={{ headerShown: false }} />
     <Stack.Screen name="CitySelectionScreen" component={CitySelectionScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
