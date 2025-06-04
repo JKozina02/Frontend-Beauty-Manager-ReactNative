@@ -105,7 +105,10 @@ export const PopMenuComponent = ({ userName, role }) => {
                 colour="#000000"
               />
               <MenuItemComponent
-                onPress={() => console.log("About us")}
+                onPress={() => {
+                  navigation.navigate("AboutUs");
+                  toggleMenu();
+                }}
                 source="account-group-outline"
                 imageStyle={styles.imgOptionStyle}
                 option="About us"
